@@ -124,5 +124,4 @@ fi
 #   fi
 # fi
 #
-# #pushd $GOPATH/src/github.com/shu-ando/
 #
