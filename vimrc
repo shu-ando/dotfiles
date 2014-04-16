@@ -5,8 +5,6 @@ filetype plugin indent off
 
 if has('vim_starting')
 	set rtp+=~/.vim/bundle/neobundle.vim/
-	set rtp+=$GOROOT/misc/vim/
-	set rtp+=$GOPATH/src/github.com/nsf/gocode/vim/
 end
 call neobundle#rc(expand('~/.vim/bundle/'))
 
@@ -22,24 +20,25 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
-"NeoBundle 'Shougo/neocomplcache'
 "NeoBundle 'Shougo/neocomplete'
 "NeoBundle 'ujihisa/unite-locate'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'fatih/vim-go'
+NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'SirVer/ultisnips'
+NeoBundle 'godlygeek/tabular'
 "NeoBundle 'taglist.vim'
 "NeoBundle 'ref.vim'
 "NeoBundle 'fugitive.vim'
 "NeoBundle 'thinca/vim-quickrun'
 "NeoBundle 'thinca/vim-localrc'
 "NeoBundle 'dbext.vim'
-"NeoBundle 'rails.vim'
 "NeoBundle 'Gist.vim'
-"NeoBundle 'motemen/hatena-vim'
 "NeoBundle 'mattn/webapi-vim'
 "NeoBundle 'mattn/unite-advent_calendar'
-"NeoBundle 'open-browser.vim'
+NeoBundle 'tyru/open-browser.vim'
 "NeoBundle 'ctrlp.vim'
 "NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'tomasr/molokai'
@@ -55,7 +54,16 @@ let g:user_emmet_settings = {
 			\  'indentation' : '  '
 			\}
 
+
+
 let g:vimfiler_as_default_explorer = 1
+let g:ycm_key_list_previous_completion=['<Up>']
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsListSnippets="<C-Tab>"
+
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+let g:UltiSnipsEditSplit="vertical"
 
 "autocmd FileType go setlocal omnifunc=syntaxcomplete#Complete
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -67,7 +75,7 @@ set autoread
 "set hidden  " 編集中でも他ファイル開ける
 set noswapfile nobackup " スワップファイル, バックアップを取らない
 autocmd BufWritePre * :%s/\s\+$//ge " 保存時に行末の空白を除去する
-autocmd FileType go autocmd BufWritePre <buffer> Fmt
+" autocmd FileType go autocmd BufWritePre <buffer> Fmt
 syntax on " シンタックスカラー ON
 
 " Indent -----------------------------------------
@@ -156,7 +164,8 @@ set ffs=unix,dos
 
 " Insert mode like emacs
 " Use <tab> to indent
-inoremap <tab> <C-o>==<End>
+"inoremap <tab> <C-o>==<End>
+inoremap jj <Esc>
 inoremap <C-p> <Up>
 inoremap <C-n> <Down>
 inoremap <C-b> <Left>
@@ -164,13 +173,13 @@ inoremap <C-f> <Right>
 inoremap <C-e> <End>
 inoremap <C-a> <Home>
 inoremap <C-h> <Left><C-o>x
-inoremap <C-d> <Del>
+"inoremap <C-d> <Del>
 " カーソル位置の行をウィンドウの中央に来るようにスルロール
 inoremap <C-l> <C-o>zz
 " カーソル以降の文字を削除
 inoremap <C-k> <C-o>D
 " カーソル以前の文字を削除
-inoremap <C-u> <C-o>d0
+"inoremap <C-u> <C-o>d1
 " アンドゥ
 inoremap <C-x>u <C-o>u
 " 貼りつけ
@@ -187,19 +196,40 @@ inoremap <C-v> <C-o><C-f>
 inoremap <F1>v <C-o><C-b>
 " Ctrl-Space で補完
 " Windowsは <Nul>でなく <C-Space> とする
-inoremap <C-Space> <C-n>
+"inoremap <C-Space> <C-n>
 " 保存
 inoremap <C-x>s <Esc>:w<CR>a
 inoremap <C-x>c <Esc>:wq<CR>
 " 選択
-inoremap <C-2> <Esc><C-v>
-inoremap <C-3> <Esc><C-V>
+"inoremap <C-2> <Esc><C-v>
+"inoremap <C-3> <Esc><C-V>
 
 
 cnoremap <C-f> <Right>
 cnoremap <C-b> <Left>
 cnoremap <C-e> <End>
 cnoremap <C-a> <Home>
+
+
+nnoremap <S-Left>  <C-w><<CR>
+nnoremap <S-Right> <C-w>><CR>
+nnoremap <S-Up>    <C-w>-<CR>
+nnoremap <S-Down>  <C-w>+<CR>
+
+"Go-vim Mapping
+let mapleader=','
+au FileType go nmap <Leader>i  <Plug>(go-import)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>r  <Plug>(go-run)
+au FileType go nmap <Leader>b  <Plug>(go-build)
+au FileType go nmap <Leader>t  <Plug>(go-test)
+au FileType go nmap <Leader>gd <Plug>(go-dof)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+
+
 
 " ディレクトリ
 let g:netrw_liststyle=3
