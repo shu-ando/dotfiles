@@ -1,27 +1,30 @@
-# ~/.profile: executed by the command interpreter for login shells.
-# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
-# exists.
-# see /usr/share/doc/bash/examples/startup-files for examples.
-# the files are located in the bash-doc package.
+# TERM settings
+TERM="xterm-256color"
+export TERM
 
-# the default umask is set in /etc/profile; for setting the umask
-# for ssh logins, install and configure the libpam-umask package.
-#umask 022
+# GOPATH settings
+GOROOT="/usr/local/go"
+GOPATH="$HOME/go"
+PATH="$PATH:$HOME/bin:$GOROOT/bin:$GOPATH/bin"
+export GOROOT GOPATH PATH
 
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-    fi
+if [ "`id -u`" -eq 0 ]; then
+  PS1="\[\e[38;5;197m\]\u@\h\[\e[0m\] \[\e[38;5;081m\]\t\[\e[0m\] \[\e[38;5;228m\]\w\[\e[0m\] \! \n\\# "
+else
+  PS1="\[\e[38;5;085m\]\u@\h\[\e[0m\] \[\e[38;5;081m\]\t\[\e[0m\] \[\e[38;5;228m\]\w\[\e[0m\] \! \n\\$ "
 fi
+export PS1
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+# history settings
+HISTCONTROL=ignoreboth
+HISTFILESIZE=2000
+HISTSIZE=9999
+HISTTIMEFORMAT='%Y/%m/%d %T '
+HISTIGNORE="fg*:bg*:history*"
+export HISTCONTROL HISTFILESIZE HISTSIZE HISTTIMEFORMAT HISTIGNORE
+
+# include .bashrc if it exists
+if [ -f "$HOME/.bashrc" ]; then
+    . "$HOME/.bashrc"
 fi
-
-export GOROOT="/usr/local/go"
-export GOPATH="$HOME/go"
-export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
 

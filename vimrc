@@ -39,7 +39,6 @@ NeoBundle 'godlygeek/tabular'
 "NeoBundle 'mattn/webapi-vim'
 "NeoBundle 'mattn/unite-advent_calendar'
 NeoBundle 'tyru/open-browser.vim'
-"NeoBundle 'ctrlp.vim'
 "NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'tomasr/molokai'
 
@@ -73,7 +72,7 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 " File -------------------------------------------
 set autoread
 "set hidden  " 編集中でも他ファイル開ける
-set noswapfile nobackup " スワップファイル, バックアップを取らない
+set nowritebackup noswapfile nobackup " スワップファイル, バックアップを取らない
 autocmd BufWritePre * :%s/\s\+$//ge " 保存時に行末の空白を除去する
 " autocmd FileType go autocmd BufWritePre <buffer> Fmt
 syntax on " シンタックスカラー ON
@@ -89,6 +88,7 @@ set backspace=indent,eol,start " バックスペースで特殊記号も削除�
 set formatoptions=lmoq " 整形オプション, マルチバイト系を追加
 set whichwrap=b,s,h,l,>,<,[,] " カーソルを行頭、行末で止まらないようにする
 " set clipboard=unnamed, autoselect " バッファにクリップボードを利用する
+set matchpairs& matchpairs+=<:>
 
 " Complement Command -----------------------------
 set wildmenu
@@ -128,6 +128,8 @@ set list " 不可視文字表示
 set listchars=tab:»-,trail:\ ,eol:↲,extends:»,precedes:«,nbsp:% " 不可視文字の表示方法
 set notitle " タイトル書き換えない
 " set scrolloff=5 " 行送り
+set textwidth=0
+set colorcolumn=80
 
 " StatusLine -------------------------------------
 hi User1 ctermfg=253  ctermbg=63
@@ -166,6 +168,14 @@ set ffs=unix,dos
 " Use <tab> to indent
 "inoremap <tab> <C-o>==<End>
 inoremap jj <Esc>
+nmap <silent> <Esc><Esc> :nohlsearch<CR>
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+
 inoremap <C-p> <Up>
 inoremap <C-n> <Down>
 inoremap <C-b> <Left>
