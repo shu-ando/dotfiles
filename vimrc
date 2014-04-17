@@ -53,8 +53,6 @@ let g:user_emmet_settings = {
 			\  'indentation' : '  '
 			\}
 
-
-
 let g:vimfiler_as_default_explorer = 1
 let g:ycm_key_list_previous_completion=['<Up>']
 let g:UltiSnipsExpandTrigger="<C-j>"
@@ -71,7 +69,8 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 " File -------------------------------------------
 set autoread
-"set hidden  " 編集中でも他ファイル開ける
+set hidden  " 編集中でも他ファイル開ける
+set switchbuf=useopen " 既にあるバッファを開く
 set nowritebackup noswapfile nobackup " スワップファイル, バックアップを取らない
 autocmd BufWritePre * :%s/\s\+$//ge " 保存時に行末の空白を除去する
 " autocmd FileType go autocmd BufWritePre <buffer> Fmt
@@ -120,6 +119,7 @@ endif
 set display=uhex " 印字不可能文字を16進数で表示
 set cursorline " カーソル行をハイライト
 set showmatch " 括弧の対応をハイライト
+set matchtime=3 " 対応括弧のハイライト表示3秒
 set showcmd " 入力中のコマンドを表示
 set showmode " 現在のモードを表示
 set number " 行番号表示
@@ -130,6 +130,7 @@ set notitle " タイトル書き換えない
 " set scrolloff=5 " 行送り
 set textwidth=0
 set colorcolumn=80
+
 
 " StatusLine -------------------------------------
 hi User1 ctermfg=253  ctermbg=63
@@ -169,12 +170,24 @@ set ffs=unix,dos
 "inoremap <tab> <C-o>==<End>
 inoremap jj <Esc>
 nmap <silent> <Esc><Esc> :nohlsearch<CR>
+vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
+
+nnoremap j gj
+nnoremap k gk
+
+" T + ? で各種設定をトグル
+nnoremap [toggle] <Nop>
+nmap T [toggle]
+nnoremap <silent> [toggle]s :setl spell!<CR>:setl spell?<CR>
+nnoremap <silent> [toggle]l :setl list!<CR>:setl list?<CR>
+nnoremap <silent> [toggle]t :setl expandtab!<CR>:setl expandtab?<CR>
+nnoremap <silent> [toggle]w :setl wrap!<CR>:setl wrap?<CR>
 
 inoremap <C-p> <Up>
 inoremap <C-n> <Down>

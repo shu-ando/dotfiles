@@ -1,25 +1,29 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
+# bash settings.
 #shopt -s globstar
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-# append to the history file, don't overwrite it
 shopt -s histappend
 
-# enable color support of ls and also add handy aliases
+# Prompt Command settings.
+if [ "`id -u`" -eq 0 ]; then
+  PS1="\[\e[38;5;197m\]\u@\h\[\e[0m\] \[\e[38;5;081m\]\t\[\e[0m\] \[\e[38;5;228m\]\w\[\e[0m\] \! \n\\$ "
+else
+  PS1="\[\e[38;5;085m\]\u@\h\[\e[0m\] \[\e[38;5;081m\]\t\[\e[0m\] \[\e[38;5;228m\]\w\[\e[0m\] \! \n\\$ "
+fi
+
+# alias settings
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)"
     alias ls='ls --color=auto'
     alias dir='dir --color=auto'
     alias vdir='vdir --color=auto'
-	# some more ls aliases
-	alias ll='ls -alf'
-	alias la='ls -a'
-	alias l='ls -CF'
+    # some more ls aliases
+    alias ll='ls -alf'
+    alias la='ls -a'
+    alias l='ls -CF'
+    alias l.='ls -d .*'
+	alias ll.='ls -ld .*'
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'

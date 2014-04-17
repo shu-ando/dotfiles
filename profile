@@ -2,18 +2,11 @@
 TERM="xterm-256color"
 export TERM
 
-# GOPATH settings
+# PATH settings
 GOROOT="/usr/local/go"
 GOPATH="$HOME/go"
-PATH="$PATH:$HOME/bin:$GOROOT/bin:$GOPATH/bin"
+PATH="$PATH:$HOME/bin:$GOPATH/bin:$GOROOT/bin"
 export GOROOT GOPATH PATH
-
-if [ "`id -u`" -eq 0 ]; then
-  PS1="\[\e[38;5;197m\]\u@\h\[\e[0m\] \[\e[38;5;081m\]\t\[\e[0m\] \[\e[38;5;228m\]\w\[\e[0m\] \! \n\\$ "
-else
-  PS1="\[\e[38;5;085m\]\u@\h\[\e[0m\] \[\e[38;5;081m\]\t\[\e[0m\] \[\e[38;5;228m\]\w\[\e[0m\] \! \n\\$ "
-fi
-export PS1
 
 # history settings
 HISTCONTROL=ignoreboth
@@ -22,6 +15,45 @@ HISTSIZE=9999
 HISTTIMEFORMAT='%Y/%m/%d %T '
 HISTIGNORE="fg*:bg*:history*"
 export HISTCONTROL HISTFILESIZE HISTSIZE HISTTIMEFORMAT HISTIGNORE
+
+# proxy functions
+function proxy_on() {
+    echo -n "username:"
+    read -e username
+    echo -n "password:"
+    read -es password
+    http_proxy="http://$username:$password@proxyserver:8080/"
+    https_proxy=$http_proxy
+    ftp_proxy=$http_proxy
+    rsync_proxy=$http_proxy
+    all_proxy=$http_proxy
+    no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+    HTTP_PROXY=$http_proxy
+    HTTPS_PROXY=$https_proxy
+    FTP_PROXY=$ftp_proxy
+    RSYNC_PROXY=$rsync_proxy
+    ALL_PROXY=$all_proxy
+    NO_PROXY=$no_proxy
+    export http_proxy https_proxy ftp_proxy rsync_proxy all_proxy no_proxy
+    export HTTP_PROXY HTTPS_PROXY FTP_PROXY RSYNC_PROXY ALL_PROXY NO_PROXY
+    echo -e "\nProxy environment variable set."
+}
+
+function proxy_off() {
+    unset HTTP_PROXY
+    unset http_proxy
+    unset HTTPS_PROXY
+    unset https_proxy
+    unset FTP_PROXY
+    unset ftp_proxy
+    unset RSYNC_PROXY
+    unset rsync_proxy
+    unset ALL_PROXY
+    unset all_proxy
+    unset NO_PROXY
+    unset no_proxy
+    echo -e "\nProxy environment variable removed."
+}
 
 # include .bashrc if it exists
 if [ -f "$HOME/.bashrc" ]; then
