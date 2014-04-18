@@ -39,7 +39,7 @@ NeoBundle 'godlygeek/tabular'
 "NeoBundle 'mattn/webapi-vim'
 "NeoBundle 'mattn/unite-advent_calendar'
 NeoBundle 'tyru/open-browser.vim'
-"NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'tomasr/molokai'
 
 filetype plugin indent on
@@ -180,6 +180,8 @@ nnoremap g# g#zz
 
 nnoremap j gj
 nnoremap k gk
+
+nnoremap / /\v
 
 " T + ? で各種設定をトグル
 nnoremap [toggle] <Nop>
