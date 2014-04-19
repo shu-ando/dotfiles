@@ -41,6 +41,6 @@ alias egrep='egrep --color=auto'
 
 # call ~/.bashrc.local
 if [[ -f ~/.bashrc.local ]]; then
-	. /etc/.bashrc.local
+	. ~/.bashrc.local
 fi
 
