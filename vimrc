@@ -168,6 +168,7 @@ set ffs=unix,dos
 " Insert mode like emacs
 " Use <tab> to indent
 "inoremap <tab> <C-o>==<End>
+let mapleader=','
 inoremap jj <Esc>
 nmap <silent> <Esc><Esc> :nohlsearch<CR>
 vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
@@ -177,10 +178,8 @@ nnoremap * *zz
 nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
-
 nnoremap j gj
 nnoremap k gk
-
 nnoremap / /\v
 
 " T + ? で各種設定をトグル
@@ -190,6 +189,12 @@ nnoremap <silent> [toggle]s :setl spell!<CR>:setl spell?<CR>
 nnoremap <silent> [toggle]l :setl list!<CR>:setl list?<CR>
 nnoremap <silent> [toggle]t :setl expandtab!<CR>:setl expandtab?<CR>
 nnoremap <silent> [toggle]w :setl wrap!<CR>:setl wrap?<CR>
+
+" vimfiler
+" 現在開いているバッファのディレクトリを開く
+nnoremap <silent> <Leader>fe :<C-u>VimFilerBufferDir -quit<CR>
+" IDE風に開く
+nnoremap <silent> <Leader>fi :<C-u>VimFilerBufferDir -split -simple -winwidth=35 -no-quit<CR>
 
 inoremap <C-p> <Up>
 inoremap <C-n> <Down>
@@ -242,7 +247,6 @@ nnoremap <S-Up>    <C-w>-<CR>
 nnoremap <S-Down>  <C-w>+<CR>
 
 "Go-vim Mapping
-let mapleader=','
 au FileType go nmap <Leader>i  <Plug>(go-import)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
