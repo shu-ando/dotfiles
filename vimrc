@@ -189,12 +189,24 @@ nnoremap <silent> [toggle]s :setl spell!<CR>:setl spell?<CR>
 nnoremap <silent> [toggle]l :setl list!<CR>:setl list?<CR>
 nnoremap <silent> [toggle]t :setl expandtab!<CR>:setl expandtab?<CR>
 nnoremap <silent> [toggle]w :setl wrap!<CR>:setl wrap?<CR>
+nnoremap <silent> [toggle]n :setl number!<CR>:setl number?<CR>
 
 " vimfiler
 " 現在開いているバッファのディレクトリを開く
 nnoremap <silent> <Leader>fe :<C-u>VimFilerBufferDir -quit<CR>
 " IDE風に開く
 nnoremap <silent> <Leader>fi :<C-u>VimFilerBufferDir -split -simple -winwidth=35 -no-quit<CR>
+"Go-vim Mapping
+au FileType go nmap <Leader>i  <Plug>(go-import)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gf <Plug>(go-fmt)
+au FileType go nmap <Leader>r  <Plug>(go-run)
+au FileType go nmap <Leader>b  <Plug>(go-build)
+au FileType go nmap <Leader>t  <Plug>(go-test)
+au FileType go nmap gd <Plug>(go-def)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
 inoremap <C-p> <Up>
 inoremap <C-n> <Down>
@@ -203,6 +215,11 @@ inoremap <C-f> <Right>
 inoremap <C-e> <End>
 inoremap <C-a> <Home>
 inoremap <C-h> <Left><C-o>x
+inoremap { {}<LEFT>
+inoremap ( ()<LEFT>
+inoremap [ []<LEFT>
+inoremap " ""<LEFT>
+
 "inoremap <C-d> <Del>
 " カーソル位置の行をウィンドウの中央に来るようにスルロール
 inoremap <C-l> <C-o>zz
@@ -211,19 +228,9 @@ inoremap <C-k> <C-o>D
 " カーソル以前の文字を削除
 "inoremap <C-u> <C-o>d1
 " アンドゥ
-inoremap <C-x>u <C-o>u
+""inoremap <C-x>u <C-o>u
 " 貼りつけ
 inoremap <C-y> <C-o>P
-" カーソルから単語末尾まで削除
-inoremap <F1>d <C-o>dw
-" ファイルの先頭に移動
-inoremap <F1>< <Esc>ggI
-" ファイルの末尾に移動
-inoremap <F1>> <Esc>GA
-" 下にスクロール
-inoremap <C-v> <C-o><C-f>
-" 上にスクロール
-inoremap <F1>v <C-o><C-b>
 " Ctrl-Space で補完
 " Windowsは <Nul>でなく <C-Space> とする
 "inoremap <C-Space> <C-n>
@@ -234,31 +241,15 @@ inoremap <C-x>c <Esc>:wq<CR>
 "inoremap <C-2> <Esc><C-v>
 "inoremap <C-3> <Esc><C-V>
 
-
 cnoremap <C-f> <Right>
 cnoremap <C-b> <Left>
 cnoremap <C-e> <End>
 cnoremap <C-a> <Home>
 
-
 nnoremap <S-Left>  <C-w><<CR>
 nnoremap <S-Right> <C-w>><CR>
 nnoremap <S-Up>    <C-w>-<CR>
 nnoremap <S-Down>  <C-w>+<CR>
-
-"Go-vim Mapping
-au FileType go nmap <Leader>i  <Plug>(go-import)
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-au FileType go nmap <Leader>r  <Plug>(go-run)
-au FileType go nmap <Leader>b  <Plug>(go-build)
-au FileType go nmap <Leader>t  <Plug>(go-test)
-au FileType go nmap <Leader>gd <Plug>(go-dof)
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-
-
 
 " ディレクトリ
 let g:netrw_liststyle=3
