@@ -41,6 +41,7 @@ NeoBundle 'godlygeek/tabular'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'tomasr/molokai'
+NeoBundle 'bling/vim-airline'
 
 filetype plugin indent on
 
@@ -61,6 +62,15 @@ let g:UltiSnipsListSnippets="<C-Tab>"
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 let g:UltiSnipsEditSplit="vertical"
+
+""let g:airline_section_a = airline#section#create(['mode','' ,'branch'])
+" let g:airline#extensions#tabline#enabled = 1
+" "let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#show_buffers = 1
+" let g:airline#extensions#tabline#tab_nr_type = 1
+" let g:airline#extensions#tabline#fnamemod = ':t'
+""let g:airline_powerline_fonts = 0
+
 
 "autocmd FileType go setlocal omnifunc=syntaxcomplete#Complete
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -133,29 +143,29 @@ set colorcolumn=80
 
 
 " StatusLine -------------------------------------
-hi User1 ctermfg=253  ctermbg=63
-hi User2 ctermfg=253  ctermbg=62
-hi User3 ctermfg=253  ctermbg=61
-hi User4 ctermfg=253  ctermbg=69
-hi User5 ctermfg=253  ctermbg=68
-hi User6 ctermfg=253  ctermbg=67
-hi User7 ctermfg=253  ctermbg=66   gui=bold
-hi User8 ctermfg=253  ctermbg=65
-hi User9 ctermfg=253  ctermbg=64
-hi User0 ctermfg=253  ctermbg=31
+" hi User1 ctermfg=253  ctermbg=63
+" hi User2 ctermfg=253  ctermbg=62
+" hi User3 ctermfg=253  ctermbg=61
+" hi User4 ctermfg=253  ctermbg=69
+" hi User5 ctermfg=253  ctermbg=68
+" hi User6 ctermfg=253  ctermbg=67
+" hi User7 ctermfg=253  ctermbg=66   gui=bold
+" hi User8 ctermfg=253  ctermbg=65
+" hi User9 ctermfg=253  ctermbg=64
+" hi User0 ctermfg=253  ctermbg=31
 set laststatus=2
-set statusline=
-set statusline+=%1*\[%n]                                  " buffernr
-set statusline+=%2*\ %<%f\                                " file+path
-set statusline+=%3*\ %y\                                  " filetype
-set statusline+=%4*\ %{''.(&fenc!=''?&fenc:&enc).''}      " encoding
-set statusline+=%5*\ %{(&bomb?\",bom\":\"\")}\            " encoding2
-set statusline+=%6*\ %{&ff}\                              " fileformat (dos/unix..)
-set statusline+=%7*\ %{&spelllang}\                       " spellanguage & highlight on?
-set statusline+=%8*\ %=\ row:%l/%L\ (%3p%%)\              " rownumber/total (%)
-set statusline+=%9*\ col:%03c\                            " colnr
-set statusline+=%0*\ \ %m%r%w\ %P\ \                      " modified? readonly? top/bot.
-
+" set statusline=
+" set statusline+=%1*\[%n]                                  " buffernr
+" set statusline+=%2*\ %<%f\                                " file+path
+" set statusline+=%3*\ %y\                                  " filetype
+" set statusline+=%4*\ %{''.(&fenc!=''?&fenc:&enc).''}      " encoding
+" set statusline+=%5*\ %{(&bomb?\",bom\":\"\")}\            " encoding2
+" set statusline+=%6*\ %{&ff}\                              " fileformat (dos/unix..)
+" set statusline+=%7*\ %{&spelllang}\                       " spellanguage & highlight on?
+" set statusline+=%8*\ %=\ row:%l/%L\ (%3p%%)\              " rownumber/total (%)
+" set statusline+=%9*\ col:%03c\                            " colnr
+" set statusline+=%0*\ \ %m%r%w\ %P\ \                      " modified? readonly? top/bot.
+"
 
 " Charset, Line editing --------------------------
 set termencoding=utf-8
@@ -254,37 +264,7 @@ nnoremap <S-Down>  <C-w>+<CR>
 " ディレクトリ
 let g:netrw_liststyle=3
 
-" When insert change statusline.
-let g:hi_insert = 'hi StatusLine gui=None guifg=Black guibg=Yellow cterm=None ctermfg=Black ctermbg=Yellow'
-if has('syntax')
-	augroup InsertHook
-		autocmd!
-		autocmd InsertEnter * call s:StatusLine('Enter')
-		autocmd InsertLeave * call s:StatusLine('Leave')
-	augroup END
-endif
-
-let s:slhlcmd = ''
-function! s:StatusLine(mode)
-	if a:mode == 'Enter'
-		silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-		silent exec g:hi_insert
-	else
-		highlight clear StatusLine
-		silent exec s:slhlcmd
-	endif
-endfunction
-
-function! s:GetHighlight(hi)
-	redir => hl
-	exec 'highlight '.a:hi
-	redir END
-	let hl = substitute(hl, '[\r\n]', '', 'g')
-	let hl = substitute(hl, 'xxx', '', '')
-	return hl
-endfunction
-highlight Normal ctermbg=none
-
+"
 " プリント
 " set printfont="Migu 1M:h12"
 " set printoptions=number:y

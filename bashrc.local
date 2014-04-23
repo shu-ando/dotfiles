@@ -1,0 +1,20 @@
+# # PS1 settings
+# PS1="\[\e[38;5;153m\]\u@\h\[\e[0m\] \[\e[38;5;081m\]\t\[\e[0m\] \[\e[38;5;228m\]\w\[\e[0m\] \! \n\\$ "
+# # proxy settings
+# username=***
+# password=***
+# proxyserver=***
+# http_proxy="http://$username:$password@$proxyserver/"
+# https_proxy=$http_proxy
+# ftp_proxy=$http_proxy
+# rsync_proxy=$http_proxy
+# all_proxy=$http_proxy
+# no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+# HTTP_PROXY=$http_proxy
+# HTTPS_PROXY=$https_proxy
+# FTP_PROXY=$ftp_proxy
+# RSYNC_PROXY=$rsync_proxy
+# ALL_PROXY=$all_proxy
+# NO_PROXY=$no_proxy
+# export http_proxy https_proxy ftp_proxy rsync_proxy all_proxy no_proxy
+# export HTTP_PROXY HTTPS_PROXY FTP_PROXY RSYNC_PROXY ALL_PROXY NO_PROXY
