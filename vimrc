@@ -127,6 +127,10 @@ function! MyMode()
     return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
+let g:unite_force_overwrite_statusline = 0
+let g:vimfiler_force_overwrite_statusline = 0
+let g:vimshell_force_overwrite_statusline = 0
+
 "autocmd filetype go setlocal omnifunc=syntaxcomplete#complete
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
