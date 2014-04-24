@@ -23,6 +23,7 @@ NeoBundle 'Shougo/vimfiler'
 "NeoBundle 'Shougo/neocomplete'
 "NeoBundle 'ujihisa/unite-locate'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'fatih/vim-go'
@@ -41,8 +42,9 @@ NeoBundle 'godlygeek/tabular'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'tomasr/molokai'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'Lokaltog/powerline-fonts'
+""NeoBundle 'bling/vim-airline'
+""NeoBundle 'Lokaltog/powerline-fonts'
+NeoBundle 'itchyny/lightline.vim'
 
 filetype plugin indent on
 
@@ -64,31 +66,66 @@ let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 let g:UltiSnipsEditSplit="vertical"
 
-let g:airline_section_a = airline#section#create(['mode','' ,'branch'])
-let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#show_buffers = 1
-" let g:airline#extensions#tabline#tab_nr_type = 1
-" let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline_powerline_fonts = 1
-" let g:airline_theme = 'bubblegum'
-let g:airline_theme = 'powerlineish'
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'mode_map': { 'c': 'NORMAL' },
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+      \ },
+      \ 'component_function': {
+      \   'modified': 'MyModified',
+      \   'readonly': 'MyReadonly',
+      \   'fugitive': 'MyFugitive',
+      \   'filename': 'MyFilename',
+      \   'fileformat': 'MyFileformat',
+      \   'filetype': 'MyFiletype',
+      \   'fileencoding': 'MyFileencoding',
+      \   'mode': 'MyMode',
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
 
-" unicode symbols
-" let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-" let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-" let g:airline_symbols.linenr = '␊'
-" let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-" let g:airline_symbols.paste = 'ρ'
-" let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-" let g:airline_symbols.whitespace = 'Ξ'
+function! MyModified()
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! MyReadonly()
+    return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '⭤' : ''
+endfunction
+
+function! MyFilename()
+  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft == 'unite' ? unite#get_status_string() :
+        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! MyFugitive()
+  if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
+    let _ = fugitive#head()
+    return strlen(_) ? '⭠ '._ : ''
+  endif
+  return ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! MyFiletype()
+    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! MyFileencoding()
+  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! MyMode()
+    return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
 
 "autocmd filetype go setlocal omnifunc=syntaxcomplete#complete
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
