@@ -42,6 +42,7 @@ NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'bling/vim-airline'
+NeoBundle 'Lokaltog/powerline-fonts'
 
 filetype plugin indent on
 
@@ -63,16 +64,33 @@ let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 let g:UltiSnipsEditSplit="vertical"
 
-""let g:airline_section_a = airline#section#create(['mode','' ,'branch'])
-" let g:airline#extensions#tabline#enabled = 1
-" "let g:airline#extensions#tabline#enabled = 1
+let g:airline_section_a = airline#section#create(['mode','' ,'branch'])
+let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#show_buffers = 1
 " let g:airline#extensions#tabline#tab_nr_type = 1
 " let g:airline#extensions#tabline#fnamemod = ':t'
-""let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
+" let g:airline_theme = 'bubblegum'
+let g:airline_theme = 'powerlineish'
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
 
+" unicode symbols
+" let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+" let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+" let g:airline_symbols.linenr = '␊'
+" let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+" let g:airline_symbols.paste = 'ρ'
+" let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+" let g:airline_symbols.whitespace = 'Ξ'
 
-"autocmd FileType go setlocal omnifunc=syntaxcomplete#Complete
+"autocmd filetype go setlocal omnifunc=syntaxcomplete#complete
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
