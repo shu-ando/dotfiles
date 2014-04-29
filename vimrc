@@ -1,4 +1,5 @@
 set nocompatible
+set t_Co=256
 
 " Plugins ----------------------------------------
 filetype plugin indent off
@@ -17,34 +18,33 @@ NeoBundle 'Shougo/vimproc', {
     \ 'unix' : 'make -f make_unix.mak',
   \ },
 \ }
-NeoBundle 'Shougo/vimshell'
+
+
+"NeoBundle 'Shougo/neocomplete'
+"NeoBundle 'dbext.vim'
+"NeoBundle 'mattn/unite-advent_calendar'
+"NeoBundle 'mattn/webapi-vim'
+"NeoBundle 'ref.vim'
+"NeoBundle 'thinca/vim-localrc'
+"NeoBundle 'ujihisa/unite-locate'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
-"NeoBundle 'Shougo/neocomplete'
-"NeoBundle 'ujihisa/unite-locate'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'fatih/vim-go'
-NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'Shougo/vimshell'
 NeoBundle 'SirVer/ultisnips'
+NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'fatih/vim-go'
 NeoBundle 'godlygeek/tabular'
-"NeoBundle 'taglist.vim'
-"NeoBundle 'ref.vim'
-"NeoBundle 'fugitive.vim'
-"NeoBundle 'thinca/vim-quickrun'
-"NeoBundle 'thinca/vim-localrc'
-"NeoBundle 'dbext.vim'
-"NeoBundle 'Gist.vim'
-"NeoBundle 'mattn/webapi-vim'
-"NeoBundle 'mattn/unite-advent_calendar'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'tomasr/molokai'
-""NeoBundle 'bling/vim-airline'
-""NeoBundle 'Lokaltog/powerline-fonts'
 NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tyru/open-browser.vim'
 
 filetype plugin indent on
 
@@ -66,9 +66,10 @@ let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 let g:UltiSnipsEditSplit="vertical"
 
+call unite#custom_default_action('source/bookmark/directory', 'vimfiler')
+
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'mode_map': { 'c': 'NORMAL' },
+      \ 'colorscheme': 'powerline',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
       \ },
@@ -131,10 +132,40 @@ let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
 
-"autocmd filetype go setlocal omnifunc=syntaxcomplete#complete
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+let g:gundo_width = 40
+"let g:gundo_preview_height = 40
+let g:gundo_right = 1
+
+
+let g:tagbar_indent = 1
+
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+	\ }
 
 " File -------------------------------------------
 set autoread
@@ -142,7 +173,6 @@ set hidden  " 編集中でも他ファイル開ける
 set switchbuf=useopen " 既にあるバッファを開く
 set nowritebackup noswapfile nobackup " スワップファイル, バックアップを取らない
 autocmd BufWritePre * :%s/\s\+$//ge " 保存時に行末の空白を除去する
-" autocmd FileType go autocmd BufWritePre <buffer> Fmt
 syntax on " シンタックスカラー ON
 
 " Indent -----------------------------------------
@@ -155,7 +185,6 @@ set autoindent " 自動インデント, スマートインデント
 set backspace=indent,eol,start " バックスペースで特殊記号も削除可能
 set formatoptions=lmoq " 整形オプション, マルチバイト系を追加
 set whichwrap=b,s,h,l,>,<,[,] " カーソルを行頭、行末で止まらないようにする
-" set clipboard=unnamed, autoselect " バッファにクリップボードを利用する
 set matchpairs& matchpairs+=<:>
 
 " Complement Command -----------------------------
@@ -164,10 +193,10 @@ set wildmode=list:full
 
 " Search -----------------------------------------
 set virtualedit+=block " 矩形選択で行末を超えてブロック選択できる
-set wrapscan " 最後まで検索したら元に戻る
-set ignorecase " 大文字小文字無視
-set smartcase " 大文字で始めたら大文字小文字無視しない
-set hlsearch " 検索文字をハイライト
+set wrapscan           " 最後まで検索したら元に戻る
+set ignorecase         " 大文字小文字無視
+set smartcase          " 大文字で始めたら大文字小文字無視しない
+set hlsearch           " 検索文字をハイライト
 "set incsearch " インクリメンタルサーチ
 
 " View -------------------------------------------
@@ -185,46 +214,27 @@ if has('syntax')
 	augroup END
 	call ZenkakuSpace()
 endif
-set display=uhex " 印字不可能文字を16進数で表示
-set cursorline " カーソル行をハイライト
-set showmatch " 括弧の対応をハイライト
-set matchtime=3 " 対応括弧のハイライト表示3秒
-set showcmd " 入力中のコマンドを表示
-set showmode " 現在のモードを表示
-set number " 行番号表示
-set wrap " 画面幅で折り返す
-set list " 不可視文字表示
-set listchars=tab:»-,trail:\ ,eol:↲,extends:»,precedes:«,nbsp:% " 不可視文字の表示方法
+set display=uhex         " 印字不可能文字を16進数で表示
+set cursorline           " カーソル行をハイライト
+set showmatch            " 括弧の対応をハイライト
+set matchtime=3          " 対応括弧のハイライト表示3秒
+set showcmd              " 入力中のコマンドを表示
+set showmode             " 現在のモードを表示
+set number               " 行番号表示
+set wrap                 " 画面幅で折り返す
+if exists('&ambiwidth')
+	set ambiwidth=double
+endif
+set list                 " 不可視文字表示
+"◂, ↲,
+set listchars=tab:»-,trail:\ ,eol:«,extends:»,precedes:«,nbsp:% " 不可視文字の表示方法
 set notitle " タイトル書き換えない
 " set scrolloff=5 " 行送り
 set textwidth=0
 set colorcolumn=80
 
-
 " StatusLine -------------------------------------
-" hi User1 ctermfg=253  ctermbg=63
-" hi User2 ctermfg=253  ctermbg=62
-" hi User3 ctermfg=253  ctermbg=61
-" hi User4 ctermfg=253  ctermbg=69
-" hi User5 ctermfg=253  ctermbg=68
-" hi User6 ctermfg=253  ctermbg=67
-" hi User7 ctermfg=253  ctermbg=66   gui=bold
-" hi User8 ctermfg=253  ctermbg=65
-" hi User9 ctermfg=253  ctermbg=64
-" hi User0 ctermfg=253  ctermbg=31
 set laststatus=2
-" set statusline=
-" set statusline+=%1*\[%n]                                  " buffernr
-" set statusline+=%2*\ %<%f\                                " file+path
-" set statusline+=%3*\ %y\                                  " filetype
-" set statusline+=%4*\ %{''.(&fenc!=''?&fenc:&enc).''}      " encoding
-" set statusline+=%5*\ %{(&bomb?\",bom\":\"\")}\            " encoding2
-" set statusline+=%6*\ %{&ff}\                              " fileformat (dos/unix..)
-" set statusline+=%7*\ %{&spelllang}\                       " spellanguage & highlight on?
-" set statusline+=%8*\ %=\ row:%l/%L\ (%3p%%)\              " rownumber/total (%)
-" set statusline+=%9*\ col:%03c\                            " colnr
-" set statusline+=%0*\ \ %m%r%w\ %P\ \                      " modified? readonly? top/bot.
-"
 
 " Charset, Line editing --------------------------
 set termencoding=utf-8
@@ -233,11 +243,8 @@ set fileencodings=utf-8,sjis,cp932
 set fileformat=unix
 set ffs=unix,dos
 
-
-" Insert mode like emacs
-" Use <tab> to indent
-"inoremap <tab> <C-o>==<End>
 let mapleader=','
+
 inoremap jj <Esc>
 nmap <silent> <Esc><Esc> :nohlsearch<CR>
 vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
@@ -260,23 +267,27 @@ nnoremap <silent> [toggle]t :setl expandtab!<CR>:setl expandtab?<CR>
 nnoremap <silent> [toggle]w :setl wrap!<CR>:setl wrap?<CR>
 nnoremap <silent> [toggle]n :setl number!<CR>:setl number?<CR>
 
+nnoremap <silent> <Leader>gu :GundoToggle<CR>
+nnoremap <silent> <leader>l  :TagbarToggle<CR>
+
 " vimfiler
 " 現在開いているバッファのディレクトリを開く
-nnoremap <silent> <Leader>fe :<C-u>VimFilerBufferDir -quit<CR>
+nnoremap <silent> <Leader>fe :VimFilerBufferDir -quit<CR>
 " IDE風に開く
-nnoremap <silent> <Leader>fi :<C-u>VimFilerBufferDir -split -simple -winwidth=35 -no-quit<CR>
+nnoremap <silent> <Leader>fi :VimFilerBufferDir -split -simple -winwidth=35 -no-quit<CR>
 "Go-vim Mapping
-au FileType go nmap <Leader>i  <Plug>(go-import)
+au FileType go nmap <Leader>gi  <Plug>(go-import)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gf <Plug>(go-fmt)
-au FileType go nmap <Leader>r  <Plug>(go-run)
-au FileType go nmap <Leader>b  <Plug>(go-build)
-au FileType go nmap <Leader>t  <Plug>(go-test)
+au FileType go nmap <Leader>gr <Plug>(go-run)
+au FileType go nmap <Leader>gb  <Plug>(go-build)
+au FileType go nmap <Leader>gt  <Plug>(go-test)
 au FileType go nmap gd <Plug>(go-def)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
+" Insert mode like emacs
 inoremap <C-p> <Up>
 inoremap <C-n> <Down>
 inoremap <C-b> <Left>
@@ -284,13 +295,13 @@ inoremap <C-f> <Right>
 inoremap <C-e> <End>
 inoremap <C-a> <Home>
 inoremap <C-h> <Left><C-o>x
-inoremap { {}<LEFT>
-inoremap ( ()<LEFT>
-inoremap [ []<LEFT>
-inoremap " ""<LEFT>
+" inoremap { {}<LEFT>
+" inoremap ( ()<LEFT>
+" inoremap [ []<LEFT>
+" inoremap " ""<LEFT>
 
 "inoremap <C-d> <Del>
-" カーソル位置の行をウィンドウの中央に来るようにスルロール
+" カーソル位置の行をウィンドウの中央に来るようにスクロール
 inoremap <C-l> <C-o>zz
 " カーソル以降の文字を削除
 inoremap <C-k> <C-o>D
@@ -306,9 +317,6 @@ inoremap <C-y> <C-o>P
 " 保存
 inoremap <C-x>s <Esc>:w<CR>a
 inoremap <C-x>c <Esc>:wq<CR>
-" 選択
-"inoremap <C-2> <Esc><C-v>
-"inoremap <C-3> <Esc><C-V>
 
 cnoremap <C-f> <Right>
 cnoremap <C-b> <Left>
@@ -320,14 +328,13 @@ nnoremap <S-Right> <C-w>><CR>
 nnoremap <S-Up>    <C-w>-<CR>
 nnoremap <S-Down>  <C-w>+<CR>
 
-" ディレクトリ
-let g:netrw_liststyle=3
-
 "
 " プリント
 " set printfont="Migu 1M:h12"
 " set printoptions=number:y
 " set printoptions=syntax:a
  set printoptions=left:10mm,right:10mm,top:10mm,bottom:10mm
+let g:html_use_css = 1
+let g:use_xhtml = 1
 
 
