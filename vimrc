@@ -45,6 +45,12 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'fholgado/minibufexpl.vim'
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'kana/vim-textobj-indent'
+NeoBundle 'kana/vim-textobj-fold'
+NeoBundle 'kana/vim-textobj-entire'
+"NeoBundle 'fholgado/minibufexpl.vim'
 
 filetype plugin indent on
 
@@ -128,6 +134,76 @@ function! MyMode()
     return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
+let g:mline_bufhist_queue = []
+
+" 表示数
+let g:mline_bufhist_limit = 4
+
+" 除外パターン
+let g:mline_bufhist_exclution_pat = '^$\|.jax$\|vimfiler:\|\[unite\]\|tagbar'
+
+" 表示非表示切り替え
+let g:mline_bufhist_enable = 1
+command! Btoggle :let g:mline_bufhist_enable = g:mline_bufhist_enable ? 0 : 1 | :redrawstatus!
+
+
+function! Mline_bufhist()
+    if &filetype =~? 'unite\|vimfiler\|tagbar' || !&modifiable || len(g:mline_bufhist_queue) == 0 || g:mline_bufhist_enable == 0
+        return ''
+    endif
+
+    let current_buf_nr = bufnr('%')
+    let buf_names_str = ''
+    let last = g:mline_bufhist_queue[-1]
+    for i in g:mline_bufhist_queue
+        let t = fnamemodify(i, ':t')
+        let n = bufnr(t)
+
+        if n != current_buf_nr
+            let buf_names_str .= printf('[%d]:%s' . (i == last ? '' : ' | '), n, t)
+        endif
+    endfor
+
+    return buf_names_str
+endfunction
+
+
+function! s:update_recent_buflist(file)
+    if a:file =~? g:mline_bufhist_exclution_pat
+        " exclusion from queue
+        return
+    endif
+
+    if len(g:mline_bufhist_queue) == 0
+        " init
+        for i in range(min( [ bufnr('$'), g:mline_bufhist_limit + 1 ] ))
+            let t = bufname(i)
+            if bufexists(i) && t !~? g:mline_bufhist_exclution_pat
+                call add(g:mline_bufhist_queue, fnamemodify(t, ':p'))
+            endif
+        endfor
+    endif
+
+    " update exist buffer
+    let idx = index(g:mline_bufhist_queue, a:file)
+    if 0 <= idx
+        call remove(g:mline_bufhist_queue, idx)
+    endif
+
+    call insert(g:mline_bufhist_queue, a:file)
+
+    if g:mline_bufhist_limit + 1 < len(g:mline_bufhist_queue)
+        call remove(g:mline_bufhist_queue, -1)
+    endif
+endfunction
+
+
+" augroup general
+"     autocmd!
+"     autocmd TabEnter,BufWinEnter * call s:update_recent_buflist(expand('<amatch>'))
+" augroup END
+
+
 let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
@@ -170,10 +246,11 @@ let g:tagbar_type_go = {
 " File -------------------------------------------
 set autoread
 set hidden  " 編集中でも他ファイル開ける
-set switchbuf=useopen " 既にあるバッファを開く
+"set switchbuf=useopen " 既にあるバッファを開く
 set nowritebackup noswapfile nobackup " スワップファイル, バックアップを取らない
 autocmd BufWritePre * :%s/\s\+$//ge " 保存時に行末の空白を除去する
 syntax on " シンタックスカラー ON
+
 
 " Indent -----------------------------------------
 set tabstop=4  " Tab文字を画面上で何文字分に展開するか
@@ -234,6 +311,7 @@ set textwidth=0
 set colorcolumn=80
 
 " StatusLine -------------------------------------
+"set showtabline=2
 set laststatus=2
 
 " Charset, Line editing --------------------------
