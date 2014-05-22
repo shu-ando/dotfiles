@@ -9,6 +9,8 @@ if has('vim_starting')
 end
 call neobundle#rc(expand('~/.vim/bundle/'))
 
+NeoBundleFetch 'Shougo/neobundle.vim'
+
 "NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc', {
   \ 'build' : {
@@ -35,28 +37,33 @@ NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'fatih/vim-go'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'tomasr/molokai'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-markdown'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'fholgado/minibufexpl.vim'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-textobj-indent'
 NeoBundle 'kana/vim-textobj-fold'
 NeoBundle 'kana/vim-textobj-entire'
-"NeoBundle 'fholgado/minibufexpl.vim'
+NeoBundle 'kana/vim-operator-user'
+NeoBundle 'kana/vim-operator-replace'
+NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'othree/html5.vim'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'w0ng/vim-hybrid'
 
 filetype plugin indent on
 
 colorscheme molokai
 
 " EMMET ------------------------------------------
+let g:user_emmet_mode='a'
 let g:user_emmet_leader_key = '<C-r>'
 let g:user_emmet_settings = {
 			\  'lang' : 'ja',
@@ -198,12 +205,6 @@ function! s:update_recent_buflist(file)
 endfunction
 
 
-" augroup general
-"     autocmd!
-"     autocmd TabEnter,BufWinEnter * call s:update_recent_buflist(expand('<amatch>'))
-" augroup END
-
-
 let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
@@ -335,6 +336,8 @@ nnoremap g# g#zz
 nnoremap j gj
 nnoremap k gk
 nnoremap / /\v
+
+nmap R <Plug>(operator-replace)
 
 " T + ? で各種設定をトグル
 nnoremap [toggle] <Nop>
