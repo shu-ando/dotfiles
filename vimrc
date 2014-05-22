@@ -244,7 +244,7 @@ set hidden  " 編集中でも他ファイル開ける
 set nowritebackup
 set noswapfile
 set nobackup
-set clipboard=unnamed,autoselect
+set clipboard=unnamedplus,autoselect
 autocmd BufWritePre * :%s/\s\+$//ge " 保存時に行末の空白を除去する
 syntax on " シンタックスカラー ON
 
