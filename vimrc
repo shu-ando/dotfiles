@@ -11,7 +11,6 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-"NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc', {
   \ 'build' : {
     \ 'windows' : 'make -f make_mingw32.mak',
@@ -20,39 +19,33 @@ NeoBundle 'Shougo/vimproc', {
     \ 'unix' : 'make -f make_unix.mak',
   \ },
 \ }
-
-
-"NeoBundle 'Shougo/neocomplete'
-"NeoBundle 'dbext.vim'
-"NeoBundle 'mattn/unite-advent_calendar'
-"NeoBundle 'mattn/webapi-vim'
-"NeoBundle 'ref.vim'
-"NeoBundle 'thinca/vim-localrc'
-"NeoBundle 'ujihisa/unite-locate'
+NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimshell'
-NeoBundle 'SirVer/ultisnips'
-NeoBundle 'Valloric/YouCompleteMe'
-NeoBundle 'fatih/vim-go'
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'sjl/gundo.vim'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-markdown'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'fholgado/minibufexpl.vim'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-textobj-indent'
 NeoBundle 'kana/vim-textobj-fold'
 NeoBundle 'kana/vim-textobj-entire'
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'kana/vim-operator-replace'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'glidenote/memolist.vim'
+NeoBundle 'kannokanno/previm'
+NeoBundle 'godlygeek/tabular'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'fholgado/minibufexpl.vim'
+NeoBundle 'fatih/vim-go'
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'tomasr/molokai'
@@ -248,7 +241,10 @@ let g:tagbar_type_go = {
 set autoread
 set hidden  " 編集中でも他ファイル開ける
 "set switchbuf=useopen " 既にあるバッファを開く
-set nowritebackup noswapfile nobackup " スワップファイル, バックアップを取らない
+set nowritebackup
+set noswapfile
+set nobackup
+set clipboard=unnamed,autoselect
 autocmd BufWritePre * :%s/\s\+$//ge " 保存時に行末の空白を除去する
 syntax on " シンタックスカラー ON
 
