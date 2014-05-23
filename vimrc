@@ -39,6 +39,7 @@ NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'glidenote/memolist.vim'
+NeoBundle 'fuenor/qfixgrep'
 NeoBundle 'kannokanno/previm'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'majutsushi/tagbar'
@@ -64,13 +65,13 @@ let g:user_emmet_settings = {
 			\}
 
 let g:vimfiler_as_default_explorer = 1
-let g:ycm_key_list_previous_completion=['<Up>']
-let g:UltiSnipsExpandTrigger="<C-j>"
-let g:UltiSnipsListSnippets="<C-Tab>"
-
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-let g:UltiSnipsEditSplit="vertical"
+" let g:ycm_key_list_previous_completion=['<Up>']
+" let g:UltiSnipsExpandTrigger="<C-j>"
+" let g:UltiSnipsListSnippets="<C-Tab>"
+"
+" let g:UltiSnipsJumpForwardTrigger="<Tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+" let g:UltiSnipsEditSplit="vertical"
 
 call unite#custom_default_action('source/bookmark/directory', 'vimfiler')
 
@@ -196,6 +197,19 @@ function! s:update_recent_buflist(file)
         call remove(g:mline_bufhist_queue, -1)
     endif
 endfunction
+
+
+let g:memolist_memo_suffix = "md"
+let g:memolist_qfixgrep = 1
+
+" Neocomplete
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+
 
 
 let g:unite_force_overwrite_statusline = 0
@@ -405,7 +419,32 @@ nnoremap <S-Right> <C-w>><CR>
 nnoremap <S-Up>    <C-w>-<CR>
 nnoremap <S-Down>  <C-w>+<CR>
 
-"
+" 補完
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+
+map <Leader>mn :MemoNew<CR>
+map <Leader>ml :MemoList<CR>
+map <Leader>mg :MemoGrep<CR>
+
+
+
+
 " プリント
 " set printfont="Migu 1M:h12"
 " set printoptions=number:y
