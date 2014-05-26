@@ -1,6 +1,7 @@
 set nocompatible
 set t_Co=256
 
+" **Import Plugins** {{{1
 " Plugins ----------------------------------------
 filetype plugin indent off
 
@@ -53,9 +54,11 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'w0ng/vim-hybrid'
 
 filetype plugin indent on
+"}}}
 
 colorscheme molokai
 
+" **Plugin Settings** {{{1
 " EMMET ------------------------------------------
 let g:user_emmet_mode='a'
 let g:user_emmet_leader_key = '<C-r>'
@@ -250,6 +253,9 @@ let g:tagbar_type_go = {
     \ 'ctagsbin'  : 'gotags',
     \ 'ctagsargs' : '-sort -silent'
 	\ }
+" }}}
+
+" **BASIC SETTINGS** {{{1
 
 " File -------------------------------------------
 set autoread
@@ -331,11 +337,19 @@ set encoding=utf-8
 set fileencodings=utf-8,sjis,cp932
 set fileformat=unix
 set ffs=unix,dos
+" }}}
+
+augroup PrevimSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+augroup END
+
+
 
 let mapleader=','
 
 inoremap jj <Esc>
-nmap <silent> <Esc><Esc> :nohlsearch<CR>
+nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
 vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
 nnoremap n nzz
 nnoremap N Nzz
@@ -367,16 +381,16 @@ nnoremap <silent> <Leader>fe :VimFilerBufferDir -quit<CR>
 " IDE風に開く
 nnoremap <silent> <Leader>fi :VimFilerBufferDir -split -simple -winwidth=35 -no-quit<CR>
 "Go-vim Mapping
-au FileType go nmap <Leader>gi  <Plug>(go-import)
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gf <Plug>(go-fmt)
-au FileType go nmap <Leader>gr <Plug>(go-run)
-au FileType go nmap <Leader>gb  <Plug>(go-build)
-au FileType go nmap <Leader>gt  <Plug>(go-test)
-au FileType go nmap gd <Plug>(go-def)
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nnoremap <Leader>gi  <Plug>(go-import)
+au FileType go nnoremap<Leader>gd <Plug>(go-doc)
+au FileType go nnoremap<Leader>gf <Plug>(go-fmt)
+au FileType go nnoremap<Leader>gr <Plug>(go-run)
+au FileType go nnoremap<Leader>gb  <Plug>(go-build)
+au FileType go nnoremap <Leader>gt  <Plug>(go-test)
+au FileType go nnoremap gd <Plug>(go-def)
+au FileType go nnoremap <Leader>ds <Plug>(go-def-split)
+au FileType go nnoremap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nnoremap <Leader>dt <Plug>(go-def-tab)
 
 " Insert mode like emacs
 inoremap <C-p> <Up>
@@ -438,12 +452,14 @@ if has('conceal')
 endif
 
 
-map <Leader>mn :MemoNew<CR>
-map <Leader>ml :MemoList<CR>
-map <Leader>mg :MemoGrep<CR>
+nnoremap <Leader>mn :MemoNew<CR>
+nnoremap <Leader>ml :MemoList<CR>
+nnoremap <Leader>mg :MemoGrep<CR>
+
+nnoremap <Leader>W :silent ! start google-chrome %<CR>
 
 
-
+au BufNewFile,BufRead *.html set ts=2 sw=2 sts=2
 
 " プリント
 " set printfont="Migu 1M:h12"
@@ -453,4 +469,4 @@ map <Leader>mg :MemoGrep<CR>
 let g:html_use_css = 1
 let g:use_xhtml = 1
 
-
+set foldmethod=marker
