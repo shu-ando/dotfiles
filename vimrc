@@ -1,8 +1,7 @@
 set nocompatible
 set t_Co=256
 
-" **Import Plugins** {{{1
-" Plugins ----------------------------------------
+" IMPORT PLUGINS {{{1
 filetype plugin indent off
 
 if has('vim_starting')
@@ -11,7 +10,6 @@ end
 call neobundle#rc(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
-
 NeoBundle 'Shougo/vimproc', {
   \ 'build' : {
     \ 'windows' : 'make -f make_mingw32.mak',
@@ -56,28 +54,8 @@ NeoBundle 'w0ng/vim-hybrid'
 filetype plugin indent on
 "}}}
 
-colorscheme molokai
-
-" **Plugin Settings** {{{1
-" EMMET ------------------------------------------
-let g:user_emmet_mode='a'
-let g:user_emmet_leader_key = '<C-r>'
-let g:user_emmet_settings = {
-			\  'lang' : 'ja',
-			\  'indentation' : '  '
-			\}
-
-let g:vimfiler_as_default_explorer = 1
-" let g:ycm_key_list_previous_completion=['<Up>']
-" let g:UltiSnipsExpandTrigger="<C-j>"
-" let g:UltiSnipsListSnippets="<C-Tab>"
-"
-" let g:UltiSnipsJumpForwardTrigger="<Tab>"
-" let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-" let g:UltiSnipsEditSplit="vertical"
-
-call unite#custom_default_action('source/bookmark/directory', 'vimfiler')
-
+" PLUGIN SETTINGS {{{1
+" LIGHTLINE {{{2
 let g:lightline = {
       \ 'colorscheme': 'powerline',
       \ 'active': {
@@ -140,16 +118,12 @@ endfunction
 
 let g:mline_bufhist_queue = []
 
-" 表示数
 let g:mline_bufhist_limit = 4
 
-" 除外パターン
 let g:mline_bufhist_exclution_pat = '^$\|.jax$\|vimfiler:\|\[unite\]\|tagbar'
 
-" 表示非表示切り替え
 let g:mline_bufhist_enable = 1
 command! Btoggle :let g:mline_bufhist_enable = g:mline_bufhist_enable ? 0 : 1 | :redrawstatus!
-
 
 function! Mline_bufhist()
     if &filetype =~? 'unite\|vimfiler\|tagbar' || !&modifiable || len(g:mline_bufhist_queue) == 0 || g:mline_bufhist_enable == 0
@@ -170,7 +144,6 @@ function! Mline_bufhist()
 
     return buf_names_str
 endfunction
-
 
 function! s:update_recent_buflist(file)
     if a:file =~? g:mline_bufhist_exclution_pat
@@ -200,32 +173,52 @@ function! s:update_recent_buflist(file)
         call remove(g:mline_bufhist_queue, -1)
     endif
 endfunction
+"}}}
 
+" EMMET {{{2
+let g:user_emmet_mode='a'
+let g:user_emmet_leader_key = '<c-y>'
+let g:user_emmet_settings = {
+			\  'lang' : 'ja',
+			\  'indentation' : '  '
+			\}
+"}}}
 
+" VIMFILER {{{2
+let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_safe_mode_by_default = 0
+let g:vimfiler_force_overwrite_statusline = 0
+"}}}
+
+" UNITE {{{2
+call unite#custom_default_action('source/bookmark/directory', 'vimfiler')
+let g:unite_force_overwrite_statusline = 0
+"}}}
+
+" MEMOLIST {{{2
 let g:memolist_memo_suffix = "md"
 let g:memolist_qfixgrep = 1
+"}}}
 
-" Neocomplete
-let g:acp_enableAtStartup = 0
+" NEOCOMPLETE {{{2
+let g:acp_enableatstartup = 0
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+"}}}
 
-
-
-
-let g:unite_force_overwrite_statusline = 0
-let g:vimfiler_force_overwrite_statusline = 0
+" VIMSHELL {{{2
 let g:vimshell_force_overwrite_statusline = 0
+""}}}
 
+" GUNDO {{{2
 let g:gundo_width = 40
-"let g:gundo_preview_height = 40
 let g:gundo_right = 1
+"}}}
 
-
+" TAGBAR {{{2
 let g:tagbar_indent = 1
-
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
@@ -253,99 +246,111 @@ let g:tagbar_type_go = {
     \ 'ctagsbin'  : 'gotags',
     \ 'ctagsargs' : '-sort -silent'
 	\ }
+""}}}
+"
+" YCM {{{2
+" let g:ycm_key_list_previous_completion=['<up>']
+" let g:ultisnipsexpandtrigger="<c-j>"
+" let g:ultisnipslistsnippets="<c-tab>"
+"}}}
+
+" ULTISNIPS {{{2
+" let g:UltiSnipsJumpForwardTrigger="<Tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+" let g:UltiSnipsEditSplit="vertical"
+"}}}
 " }}}
 
-" **BASIC SETTINGS** {{{1
-
-" File -------------------------------------------
+" BASIC SETTINGS {{{1
 set autoread
-set hidden  " 編集中でも他ファイル開ける
-"set switchbuf=useopen " 既にあるバッファを開く
+set hidden
+set switchbuf=useopen
 set nowritebackup
 set noswapfile
 set nobackup
 set clipboard=unnamedplus,autoselect
-autocmd BufWritePre * :%s/\s\+$//ge " 保存時に行末の空白を除去する
-syntax on " シンタックスカラー ON
+autocmd BufWritePre * :%s/\s\+$//ge
 
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set autoindent
 
-" Indent -----------------------------------------
-set tabstop=4  " Tab文字を画面上で何文字分に展開するか
-set shiftwidth=4 " cindentやautoindent時に挿入されるインデントの幅
-set softtabstop=4 " Tabキー押下時に挿入される空白の量、0の場合はtabstopと同じ
-set autoindent " 自動インデント, スマートインデント
-
-" Assist imputting -------------------------------
-set backspace=indent,eol,start " バックスペースで特殊記号も削除可能
-set formatoptions=lmoq " 整形オプション, マルチバイト系を追加
-set whichwrap=b,s,h,l,>,<,[,] " カーソルを行頭、行末で止まらないようにする
+set backspace=indent,eol,start
+set formatoptions=lmoq
+set whichwrap=b,s,h,l,>,<,[,]
 set matchpairs& matchpairs+=<:>
 
-" Complement Command -----------------------------
 set wildmenu
 set wildmode=list:full
 
-" Search -----------------------------------------
-set virtualedit+=block " 矩形選択で行末を超えてブロック選択できる
-set wrapscan           " 最後まで検索したら元に戻る
-set ignorecase         " 大文字小文字無視
-set smartcase          " 大文字で始めたら大文字小文字無視しない
-set hlsearch           " 検索文字をハイライト
-"set incsearch " インクリメンタルサーチ
+set virtualedit+=block
+set wrapscan
+set ignorecase
+set smartcase
+set hlsearch
+"set incsearch
 
-" View -------------------------------------------
-" 全角スペースの表示
 function! ZenkakuSpace()
 	highlight ZenkakuSpace cterm=underline ctermfg=darkgray gui=underline
 endfunction
 if has('syntax')
 	augroup ZenkakuSpace
 		autocmd!
-		" ZenkakuSpaceをカラーファイルで設定するなら次の行は削除
 		autocmd ColorScheme       * call ZenkakuSpace()
-		" 全角スペースのハイライト指定
 		autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
 	augroup END
 	call ZenkakuSpace()
 endif
-set display=uhex         " 印字不可能文字を16進数で表示
-set cursorline           " カーソル行をハイライト
-set showmatch            " 括弧の対応をハイライト
-set matchtime=3          " 対応括弧のハイライト表示3秒
-set showcmd              " 入力中のコマンドを表示
-set showmode             " 現在のモードを表示
-set number               " 行番号表示
-set wrap                 " 画面幅で折り返す
+set display=uhex
+set cursorline
+set showmatch
+set matchtime=3
+set showcmd
+set showmode
+set number
+set wrap
 if exists('&ambiwidth')
 	set ambiwidth=double
 endif
-set list                 " 不可視文字表示
+set list
 "◂, ↲,
-set listchars=tab:»-,trail:\ ,eol:«,extends:»,precedes:«,nbsp:% " 不可視文字の表示方法
-set notitle " タイトル書き換えない
-" set scrolloff=5 " 行送り
+set listchars=tab:»-,trail:\ ,eol:«,extends:»,precedes:«,nbsp:%
+set notitle
+" set scrolloff=5
 set textwidth=0
 set colorcolumn=80
 
-" StatusLine -------------------------------------
 "set showtabline=2
 set laststatus=2
 
-" Charset, Line editing --------------------------
 set termencoding=utf-8
 set encoding=utf-8
 set fileencodings=utf-8,sjis,cp932
 set fileformat=unix
 set ffs=unix,dos
-" }}}
+
+au BufNewFile,BufRead *.html set ts=2 sw=2 sts=2 et
 
 augroup PrevimSettings
     autocmd!
     autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 augroup END
 
+" set printfont="migu 1m:h12"
+" set printoptions=number:y
+" set printoptions=syntax:a
+set printoptions=left:10mm,right:10mm,top:10mm,bottom:10mm
+let g:html_use_css = 1
+let g:use_xhtml = 1
 
+set foldmethod=marker
+colorscheme molokai
+syntax on
+" }}}
 
+" KEY MAPPING {{{1
+" BASIC MAPPING {{{2
 let mapleader=','
 
 inoremap jj <Esc>
@@ -360,10 +365,10 @@ nnoremap g# g#zz
 nnoremap j gj
 nnoremap k gk
 nnoremap / /\v
+"}}}
+" nmap R <Plug>(operator-replace)
 
-nmap R <Plug>(operator-replace)
-
-" T + ? で各種設定をトグル
+" Toggle {{{2
 nnoremap [toggle] <Nop>
 nmap T [toggle]
 nnoremap <silent> [toggle]s :setl spell!<CR>:setl spell?<CR>
@@ -371,16 +376,10 @@ nnoremap <silent> [toggle]l :setl list!<CR>:setl list?<CR>
 nnoremap <silent> [toggle]t :setl expandtab!<CR>:setl expandtab?<CR>
 nnoremap <silent> [toggle]w :setl wrap!<CR>:setl wrap?<CR>
 nnoremap <silent> [toggle]n :setl number!<CR>:setl number?<CR>
+nnoremap <silent> [toggle]p :setl paste!<CR>:setl paste?<CR>
+"}}}
 
-nnoremap <silent> <Leader>gu :GundoToggle<CR>
-nnoremap <silent> <leader>l  :TagbarToggle<CR>
-
-" vimfiler
-" 現在開いているバッファのディレクトリを開く
-nnoremap <silent> <Leader>fe :VimFilerBufferDir -quit<CR>
-" IDE風に開く
-nnoremap <silent> <Leader>fi :VimFilerBufferDir -split -simple -winwidth=35 -no-quit<CR>
-"Go-vim Mapping
+" Go file setting {{{2
 au FileType go nnoremap <Leader>gi  <Plug>(go-import)
 au FileType go nnoremap<Leader>gd <Plug>(go-doc)
 au FileType go nnoremap<Leader>gf <Plug>(go-fmt)
@@ -391,8 +390,9 @@ au FileType go nnoremap gd <Plug>(go-def)
 au FileType go nnoremap <Leader>ds <Plug>(go-def-split)
 au FileType go nnoremap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nnoremap <Leader>dt <Plug>(go-def-tab)
+"}}}
 
-" Insert mode like emacs
+" Emacs like setting {{{2
 inoremap <C-p> <Up>
 inoremap <C-n> <Down>
 inoremap <C-b> <Left>
@@ -406,39 +406,35 @@ inoremap <C-h> <Left><C-o>x
 " inoremap " ""<LEFT>
 
 "inoremap <C-d> <Del>
-" カーソル位置の行をウィンドウの中央に来るようにスクロール
 inoremap <C-l> <C-o>zz
-" カーソル以降の文字を削除
 inoremap <C-k> <C-o>D
-" カーソル以前の文字を削除
 "inoremap <C-u> <C-o>d1
-" アンドゥ
 ""inoremap <C-x>u <C-o>u
-" 貼りつけ
-inoremap <C-y> <C-o>P
-" Ctrl-Space で補完
-" Windowsは <Nul>でなく <C-Space> とする
+"inoremap <C-y> <C-o>P
 "inoremap <C-Space> <C-n>
-" 保存
 inoremap <C-x>s <Esc>:w<CR>a
 inoremap <C-x>c <Esc>:wq<CR>
+"}}}
 
+" CommandLine Emacs like movement {{{2
 cnoremap <C-f> <Right>
 cnoremap <C-b> <Left>
 cnoremap <C-e> <End>
 cnoremap <C-a> <Home>
+"}}}
 
+" Splitter {{{2
 nnoremap <S-Left>  <C-w><<CR>
 nnoremap <S-Right> <C-w>><CR>
 nnoremap <S-Up>    <C-w>-<CR>
 nnoremap <S-Down>  <C-w>+<CR>
+"}}}
 
-" 補完
+" NeoSnippet {{{2
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
 
-" SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -446,27 +442,22 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: "\<TAB>"
 
-" For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
+"}}}
 
+" Plugin Leader {{{2
+nnoremap <silent> <Leader>gu :GundoToggle<CR>
+nnoremap <silent> <leader>l  :TagbarToggle<CR>
 
-nnoremap <Leader>mn :MemoNew<CR>
-nnoremap <Leader>ml :MemoList<CR>
-nnoremap <Leader>mg :MemoGrep<CR>
+nnoremap <silent> <Leader>fe :VimFilerBufferDir -quit<CR>
+nnoremap <silent> <Leader>fi :VimFilerBufferDir -split -simple -winwidth=35 -no-quit<CR>
 
-nnoremap <Leader>W :silent ! start google-chrome %<CR>
+nnoremap <silent> <Leader>mn :MemoNew<CR>
+nnoremap <silent> <Leader>ml :MemoList<CR>
+nnoremap <silent> <Leader>mg :MemoGrep<CR>
+"}}}
 
+"}}}
 
-au BufNewFile,BufRead *.html set ts=2 sw=2 sts=2
-
-" プリント
-" set printfont="Migu 1M:h12"
-" set printoptions=number:y
-" set printoptions=syntax:a
- set printoptions=left:10mm,right:10mm,top:10mm,bottom:10mm
-let g:html_use_css = 1
-let g:use_xhtml = 1
-
-set foldmethod=marker
