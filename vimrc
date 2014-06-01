@@ -269,7 +269,6 @@ set nowritebackup
 set noswapfile
 set nobackup
 set clipboard=unnamedplus,autoselect
-autocmd BufWritePre * :%s/\s\+$//ge
 
 set tabstop=4
 set shiftwidth=4
@@ -330,7 +329,8 @@ set fileencodings=utf-8,sjis,cp932
 set fileformat=unix
 set ffs=unix,dos
 
-au BufNewFile,BufRead *.html set ts=2 sw=2 sts=2 et
+autocmd BufWritePre * :%s/\s\+$//ge
+autocmd BufNewFile,BufRead *.html set ts=2 sw=2 sts=2 et
 
 augroup PrevimSettings
     autocmd!
@@ -457,6 +457,8 @@ nnoremap <silent> <Leader>fi :VimFilerBufferDir -split -simple -winwidth=35 -no-
 nnoremap <silent> <Leader>mn :MemoNew<CR>
 nnoremap <silent> <Leader>ml :MemoList<CR>
 nnoremap <silent> <Leader>mg :MemoGrep<CR>
+
+nmap <C-l> <Plug>(openbrowser-smart-search)
 "}}}
 
 "}}}
