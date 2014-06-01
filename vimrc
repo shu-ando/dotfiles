@@ -380,16 +380,16 @@ nnoremap <silent> [toggle]p :setl paste!<CR>:setl paste?<CR>
 "}}}
 
 " Go file setting {{{2
-au FileType go nnoremap <Leader>gi  <Plug>(go-import)
-au FileType go nnoremap<Leader>gd <Plug>(go-doc)
-au FileType go nnoremap<Leader>gf <Plug>(go-fmt)
-au FileType go nnoremap<Leader>gr <Plug>(go-run)
-au FileType go nnoremap<Leader>gb  <Plug>(go-build)
-au FileType go nnoremap <Leader>gt  <Plug>(go-test)
-au FileType go nnoremap gd <Plug>(go-def)
-au FileType go nnoremap <Leader>ds <Plug>(go-def-split)
-au FileType go nnoremap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nnoremap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>gi  <Plug>(go-import)
+au FileType go nmap<Leader>gd <Plug>(go-doc)
+au FileType go nmap<Leader>gf <Plug>(go-fmt)
+au FileType go nmap<Leader>gr <Plug>(go-run)
+au FileType go nmap<Leader>gb  <Plug>(go-build)
+au FileType go nmap <Leader>gt  <Plug>(go-test)
+au FileType go nmap gd <Plug>(go-def)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 "}}}
 
 " Emacs like setting {{{2
