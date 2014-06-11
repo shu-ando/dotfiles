@@ -247,7 +247,13 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
 	\ }
 ""}}}
-"
+
+" VIM-GO {{{2
+let g:go_fmt_command = "gofmt"
+let g:go_snippet_engine = "neosnippet"
+" let g:go_disable_autoinstall=1
+" }}}
+
 " YCM {{{2
 " let g:ycm_key_list_previous_completion=['<up>']
 " let g:ultisnipsexpandtrigger="<c-j>"
@@ -457,6 +463,9 @@ nnoremap <silent> <Leader>fi :VimFilerBufferDir -split -simple -winwidth=35 -no-
 nnoremap <silent> <Leader>mn :MemoNew<CR>
 nnoremap <silent> <Leader>ml :MemoList<CR>
 nnoremap <silent> <Leader>mg :MemoGrep<CR>
+
+nnoremap <silent> <Leader>ba :UniteBookmarkAdd<CR>
+nnoremap <silent> <Leader>bl :Unite bookmark<CR>
 
 nmap <C-l> <Plug>(openbrowser-smart-search)
 "}}}
