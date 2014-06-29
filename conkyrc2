@@ -53,8 +53,8 @@ ${offset 55}${voffset 110}${color}${font URW Gothic L:size=25}RAM
 ${offset 82}${voffset -20}${color #000000}${font URW Gothic L:size=11}${memperc}%
 ${offset 220}${voffset -80}${color}${font URW Gothic L:size=25}BAT
 ${offset 235}${voffset -20}${color #000000}${font URW Gothic L:size=11}${battery_percent BAT0}%
-$if_mpd_playing
-${offset 165}${voffset -530}${font URW Gothic L:size=15}${color}${mpd_title}
-${offset 190}${font URW Gothic L:size=12}${mpd_artist}
-${offset 205}${font URW Gothic L:size=10}${mpd_album}
-$endif
+# $if_mpd_playing
+# ${offset 165}${voffset -530}${font URW Gothic L:size=15}${color}${mpd_title}
+# ${offset 190}${font URW Gothic L:size=12}${mpd_artist}
+# ${offset 205}${font URW Gothic L:size=10}${mpd_album}
+# $endif

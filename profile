@@ -16,6 +16,10 @@ HISTTIMEFORMAT='%Y/%m/%d %T '
 HISTIGNORE="fg*:bg*:history*"
 export HISTCONTROL HISTFILESIZE HISTSIZE HISTTIMEFORMAT HISTIGNORE
 
+# editor
+EDITOR=$(which vim)
+export EDITOR
+
 # less settings
 LESS='-R'
 export LESS

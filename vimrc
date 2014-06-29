@@ -335,7 +335,7 @@ set fileencodings=utf-8,sjis,cp932
 set fileformat=unix
 set ffs=unix,dos
 
-autocmd BufWritePre * :%s/\s\+$//ge
+" autocmd BufWritePre * :%s/\s\+$//ge
 autocmd BufNewFile,BufRead *.html set ts=2 sw=2 sts=2 et
 
 augroup PrevimSettings
