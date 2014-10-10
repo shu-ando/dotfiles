@@ -17,12 +17,14 @@ HISTIGNORE="fg*:bg*:history*"
 export HISTCONTROL HISTFILESIZE HISTSIZE HISTTIMEFORMAT HISTIGNORE
 
 # editor
-EDITOR=$(which vim)
+EDITOR=$(which nvim)
 export EDITOR
 
 # less settings
 LESS='-R'
 export LESS
+LESSOPEN='| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
+export LESSOPEN
 
 # include .bashrc if it exists
 if [ -f "$HOME/.bashrc" ]; then

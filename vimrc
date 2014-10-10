@@ -5,9 +5,9 @@ set t_Co=256
 filetype plugin indent off
 
 if has('vim_starting')
-	set rtp+=~/.vim/bundle/neobundle.vim/
+	set rtp+=~/.nvim/bundle/neobundle.vim/
 end
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#rc(expand('~/.nvim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc', {
@@ -18,41 +18,64 @@ NeoBundle 'Shougo/vimproc', {
     \ 'unix' : 'make -f make_unix.mak',
   \ },
 \ }
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'kana/vim-textobj-user'
-NeoBundle 'kana/vim-textobj-indent'
-NeoBundle 'kana/vim-textobj-fold'
-NeoBundle 'kana/vim-textobj-entire'
-NeoBundle 'kana/vim-operator-user'
-NeoBundle 'kana/vim-operator-replace'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-markdown'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'glidenote/memolist.vim'
-NeoBundle 'fuenor/qfixgrep'
-NeoBundle 'kannokanno/previm'
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'sjl/gundo.vim'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'fholgado/minibufexpl.vim'
-NeoBundle 'fatih/vim-go'
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'othree/html5.vim'
+NeoBundle 'http://github.com/Shougo/neocomplete.vim'
+NeoBundle 'http://github.com/Shougo/neosnippet.vim'
+NeoBundle 'http://github.com/Shougo/neosnippet-snippets'
+NeoBundle 'http://github.com/Shougo/unite.vim'
+NeoBundle 'http://github.com/Shougo/unite-outline'
+NeoBundle 'http://github.com/Shougo/vimfiler'
+NeoBundle 'http://github.com/Shougo/vimshell.vim'
+NeoBundle 'http://github.com/kana/vim-textobj-user'
+NeoBundle 'http://github.com/kana/vim-textobj-indent'
+NeoBundle 'http://github.com/kana/vim-textobj-fold'
+NeoBundle 'http://github.com/kana/vim-textobj-entire'
+NeoBundle 'http://github.com/kana/vim-operator-user'
+NeoBundle 'http://github.com/kana/vim-operator-replace'
+NeoBundle 'http://github.com/tpope/vim-fugitive'
+NeoBundle 'http://github.com/tpope/vim-surround'
+NeoBundle 'http://github.com/tpope/vim-markdown'
+NeoBundle 'http://github.com/osyo-manga/vim-reunions'
+NeoBundle 'http://github.com/mattn/emmet-vim'
+NeoBundle 'http://github.com/itchyny/lightline.vim'
+NeoBundle 'http://github.com/tomtom/tcomment_vim'
+NeoBundle 'http://github.com/tyru/open-browser.vim'
+NeoBundle 'http://github.com/glidenote/memolist.vim'
+NeoBundle 'http://github.com/fuenor/qfixgrep'
+NeoBundle 'http://github.com/kannokanno/previm'
+NeoBundle 'http://github.com/godlygeek/tabular'
+NeoBundle 'http://github.com/sjl/gundo.vim'
+NeoBundle 'http://github.com/thinca/vim-quickrun'
+NeoBundle 'http://github.com/fholgado/minibufexpl.vim'
 " NeoBundle 'tomasr/molokai'
-NeoBundle 'fatih/molokai'
-NeoBundle 'w0ng/vim-hybrid'
-
+NeoBundle 'http://github.com/fatih/molokai'
+NeoBundle 'http://github.com/w0ng/vim-hybrid'
+NeoBundleLazy 'http://github.com/osyo-manga/vim-marching', {
+    \ 'depends' : ['Shougo/vimproc.vim', 'osyo-manga/vim-reunions'],
+    \ 'autoload' : {'filetypes' : ['c', 'cpp']}
+    \ }
+NeoBundleLazy 'http://github.com/othree/html5.vim', {
+    \ 'autoload' : {'filetype' : ['js', 'html', 'htm']}
+    \ }
+NeoBundleLazy 'http://github.com/jelera/vim-javascript-syntax', {
+    \ 'autoload' : {'filetype' : ['js', 'html', 'htm']}
+    \ }
+NeoBundleLazy 'http://github.com/fatih/vim-go', {
+    \ 'autoload' : {'filetype' : ['go']}
+    \ }
+NeoBundleLazy 'http://github.com/vim-jp/cpp-vim', {
+    \ 'autoload' : {'filetype' : ['cpp']}
+    \ }
+NeoBundleLazy 'http://github.com/rhysd/vim-clang-format', {
+    \ 'autoload' : {'filetypes' : ['c', 'cpp']}
+    \ }
+NeoBundleLazy 'http://github.com/rhysd/unite-n3337', {
+    \ 'depends' : 'Shougo/unite.vim',
+    \ 'autoload' : {'filetypes' : ['cpp']}
+    \ }
+call neobundle#end()
 filetype plugin indent on
+NeoBundleCheck
+
 "}}}
 
 " PLUGIN SETTINGS {{{1
@@ -338,7 +361,7 @@ set laststatus=2
 
 set termencoding=utf-8
 set encoding=utf-8
-set fileencodings=utf-8,sjis,cp932
+set fileencodings=utf-8,sjis,cp932,euc-JP
 set fileformat=unix
 set ffs=unix,dos
 

@@ -39,6 +39,7 @@ alias ll.='ls -ld .*'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias vim='nvim'
 
 # call ~/.bashrc.local
 if [[ -f ~/.bashrc.local ]]; then
