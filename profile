@@ -5,8 +5,9 @@ export TERM
 # PATH settings
 GOROOT="/usr/local/go"
 GOPATH="$HOME/go"
-PATH="$PATH:$HOME/bin:$GOPATH/bin:$GOROOT/bin"
-export GOROOT GOPATH PATH
+NDK_ROOT="/opt/android-ndk"
+PATH="$PATH:$HOME/bin:$GOPATH/bin:$GOROOT/bin:$NDK_ROOT"
+export GOROOT GOPATH PATH NDK_ROOT
 
 # history settings
 HISTCONTROL=ignoreboth

@@ -6,8 +6,9 @@ filetype plugin indent off
 
 if has('vim_starting')
 	set rtp+=~/.nvim/bundle/neobundle.vim/
+	set rtp+=~/.nvim/bundle/vim-ft-go/
 end
-call neobundle#rc(expand('~/.nvim/bundle/'))
+call neobundle#begin(expand('~/.nvim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc', {
@@ -50,7 +51,7 @@ NeoBundle 'http://github.com/fholgado/minibufexpl.vim'
 NeoBundle 'http://github.com/fatih/molokai'
 NeoBundle 'http://github.com/w0ng/vim-hybrid'
 NeoBundleLazy 'http://github.com/osyo-manga/vim-marching', {
-    \ 'depends' : ['Shougo/vimproc.vim', 'osyo-manga/vim-reunions'],
+    \ 'depends' : ['Shougo/vimproc', 'osyo-manga/vim-reunions'],
     \ 'autoload' : {'filetypes' : ['c', 'cpp']}
     \ }
 NeoBundleLazy 'http://github.com/othree/html5.vim', {
@@ -59,7 +60,10 @@ NeoBundleLazy 'http://github.com/othree/html5.vim', {
 NeoBundleLazy 'http://github.com/jelera/vim-javascript-syntax', {
     \ 'autoload' : {'filetype' : ['js', 'html', 'htm']}
     \ }
-NeoBundleLazy 'http://github.com/fatih/vim-go', {
+NeoBundleLazy 'http://github.com/google/vim-ft-go', {
+    \ 'autoload' : {'filetype' : ['go']}
+    \ }
+NeoBundleLazy 'http://github.com/vim-jp/vim-go-extra', {
     \ 'autoload' : {'filetype' : ['go']}
     \ }
 NeoBundleLazy 'http://github.com/vim-jp/cpp-vim', {
@@ -273,16 +277,16 @@ let g:tagbar_type_go = {
 ""}}}
 
 " VIM-GO {{{2
-let g:go_fmt_command = "gofmt"
-let g:go_snippet_engine = "neosnippet"
-" let g:go_disable_autoinstall=1
-" let g:go_gocode_bin="~/your/custom/gocode/path"
-" let g:go_goimports_bin="~/your/custom/goimports/path"
-" let g:go_godef_bin="~/your/custom/godef/path"
-" let g:go_oracle_bin="~/your/custom/godef/path"
-" let g:go_golint_bin="~/your/custom/golint/path"
-" let g:go_errcheck_bin="~/your/custom/errcheck/path"
-" }}}
+" let g:go_fmt_command = "gofmt"
+" let g:go_snippet_engine = "neosnippet"
+" " let g:go_disable_autoinstall=1
+" " let g:go_gocode_bin="~/your/custom/gocode/path"
+" " let g:go_goimports_bin="~/your/custom/goimports/path"
+" " let g:go_godef_bin="~/your/custom/godef/path"
+" " let g:go_oracle_bin="~/your/custom/godef/path"
+" " let g:go_golint_bin="~/your/custom/golint/path"
+" " let g:go_errcheck_bin="~/your/custom/errcheck/path"
+" " }}}
 
 " YCM {{{2
 " let g:ycm_key_list_previous_completion=['<up>']
@@ -304,7 +308,7 @@ set switchbuf=useopen
 set nowritebackup
 set noswapfile
 set nobackup
-set clipboard=unnamedplus,autoselect
+" set clipboard=unnamedplus,autoselect
 
 set tabstop=4
 set shiftwidth=4
@@ -416,18 +420,18 @@ nnoremap <silent> [toggle]p :setl paste!<CR>:setl paste?<CR>
 "}}}
 
 " Go file setting {{{2
-au FileType go nmap <Leader>gi <Plug>(go-info)
-au FileType go nmap <Leader>do <Plug>(go-doc-browser)
-" au FileType go nmap <Leader>db <Plug>(go-doc-browser)
-" au FileType go nmap<Leader>gv <Plug>(go-doc-vertical)
-" au FileType go nmap<Leader>gf <Plug>(go-fmt)
-au FileType go nmap <Leader>gr <Plug>(go-run)
-au FileType go nmap <Leader>gb <Plug>(go-build)
-au FileType go nmap <Leader>gt <Plug>(go-test)
-au FileType go nmap <Leader>gd <Plug>(go-def)
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-" au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+" au FileType go nmap <Leader>gi <Plug>(go-info)
+" au FileType go nmap <Leader>do <Plug>(go-doc-browser)
+" " au FileType go nmap <Leader>db <Plug>(go-doc-browser)
+" " au FileType go nmap<Leader>gv <Plug>(go-doc-vertical)
+" " au FileType go nmap<Leader>gf <Plug>(go-fmt)
+" au FileType go nmap <Leader>gr <Plug>(go-run)
+" au FileType go nmap <Leader>gb <Plug>(go-build)
+" au FileType go nmap <Leader>gt <Plug>(go-test)
+" au FileType go nmap <Leader>gd <Plug>(go-def)
+" au FileType go nmap <Leader>ds <Plug>(go-def-split)
+" au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+" " au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 "}}}
 
 " Emacs like setting {{{2
