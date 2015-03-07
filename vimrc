@@ -6,7 +6,6 @@ filetype plugin indent off
 
 if has('vim_starting')
 	set rtp+=~/.nvim/bundle/neobundle.vim/
-	set rtp+=~/.nvim/bundle/vim-ft-go/
 end
 call neobundle#begin(expand('~/.nvim/bundle/'))
 
@@ -47,6 +46,8 @@ NeoBundle 'http://github.com/godlygeek/tabular'
 NeoBundle 'http://github.com/sjl/gundo.vim'
 NeoBundle 'http://github.com/thinca/vim-quickrun'
 NeoBundle 'http://github.com/fholgado/minibufexpl.vim'
+NeoBundle 'http://github.com/google/vim-ft-go'
+NeoBundle 'http://github.com/vim-jp/vim-go-extra'
 " NeoBundle 'tomasr/molokai'
 NeoBundle 'http://github.com/fatih/molokai'
 NeoBundle 'http://github.com/w0ng/vim-hybrid'
@@ -60,12 +61,12 @@ NeoBundleLazy 'http://github.com/othree/html5.vim', {
 NeoBundleLazy 'http://github.com/jelera/vim-javascript-syntax', {
     \ 'autoload' : {'filetype' : ['js', 'html', 'htm']}
     \ }
-NeoBundleLazy 'http://github.com/google/vim-ft-go', {
-    \ 'autoload' : {'filetype' : ['go']}
-    \ }
-NeoBundleLazy 'http://github.com/vim-jp/vim-go-extra', {
-    \ 'autoload' : {'filetype' : ['go']}
-    \ }
+" NeoBundleLazy 'http://github.com/google/vim-ft-go', {
+"     \ 'autoload' : {'filetype' : ['go']}
+"     \ }
+" NeoBundleLazy 'http://github.com/vim-jp/vim-go-extra', {
+"     \ 'autoload' : {'filetype' : ['go']}
+"     \ }
 NeoBundleLazy 'http://github.com/vim-jp/cpp-vim', {
     \ 'autoload' : {'filetype' : ['cpp']}
     \ }

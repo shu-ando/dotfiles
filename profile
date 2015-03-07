@@ -4,7 +4,7 @@ export TERM
 
 # PATH settings
 GOROOT="/usr/local/go"
-GOPATH="$HOME/go"
+GOPATH="$HOME/repos"
 NDK_ROOT="/opt/android-ndk"
 PATH="$PATH:$HOME/bin:$GOPATH/bin:$GOROOT/bin:$NDK_ROOT"
 export GOROOT GOPATH PATH NDK_ROOT
