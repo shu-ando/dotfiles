@@ -1,6 +1,10 @@
-# # PS1 settings
-# PS1="\[\e[38;5;153m\]\u@\h\[\e[0m\] \[\e[38;5;081m\]\t\[\e[0m\] \[\e[38;5;228m\]\w\[\e[0m\] \! \n\\$ "
-# # proxy settings
+# # PS1 SETTINIGS
+#	PS1="\[\e[38;5;085m\]\u@\h\[\e[0m\] \[\e[38;5;116m\]\t\[\e[0m\]\[\e[38;5;158m\] #\$?:\!\[\e[0m\] \[\e[38;5;223m\]\$(parse_git_branch)\[\e[0m\]\[\e[38;5;228m\]\w\[\e[0m\]\n\\$ "
+
+# # ALIAS SETTINGS
+alias vim='nvim'
+
+# # PROXY SETTINGS
 # username=***
 # password=***
 # proxyserver=***

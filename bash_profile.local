@@ -1,0 +1,15 @@
+# EDITOR SETTINGS
+EDITOR=$(which nvim)
+export EDITOR
+
+# GOLANG SETTINGS
+GOROOT="/usr/local/go"
+GOPATH="$HOME/repos"
+PATH="$PATH:$HOME/bin:$GOPATH/bin:$GOROOT/bin"
+export GOROOT GOPATH PATH
+
+# ANDROID SEETINGS
+NDK_ROOT="/opt/android-ndk"
+PATH="$PATH:$NDK_ROOT"
+export NDK_ROOT PATH
+
