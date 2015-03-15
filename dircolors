@@ -1,7 +1,4 @@
-# dark 256 color solarized theme for the color GNU ls utility.
-# Used and tested with dircolors (GNU coreutils) 8.5
-
-# Term Section
+# TERM SECTION
 TERM gnome-256color
 TERM putty-256color
 TERM rxvt-256color
@@ -11,13 +8,11 @@ TERM screen-256color
 TERM xterm
 TERM xterm-256color
 
-# Options
+# OPTIONS
 COLOR tty
 OPTIONS -F -T 0
 EIGHTBIT 1
 
-# Below are the color init strings for the basic file types. A color init
-# string consists of one or more of the following numeric codes:
 # Attribute codes:
 # 00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
 # Text color codes:
@@ -25,12 +20,11 @@ EIGHTBIT 1
 # Background color codes:
 # 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
 
-NORMAL 00;38;5;250                     # no color code at all
 # FILE 00                              # regular file: use no color at all
 RESET 0                                # reset to "normal" color
-DIR 01;38;5;81                         # directory (PINK)
-LINK 01;38;5;37                        # symbolic link. (If you set this to 'target' instead of a
-                                       # numerical value, the color is as for the file pointed to.)
+NORMAL 00;38;5;255                     # no color code at all
+DIR 01;38;5;81                         # directory
+LINK 01;38;5;37                        # symbolic link. 
 MULTIHARDLINK 00                       # regular file with more than one link
 FIFO 48;5;230;38;5;136;01              # pipe
 SOCK 48;5;230;38;5;136;01              # socket
@@ -45,200 +39,124 @@ STICKY_OTHER_WRITABLE 48;5;64;38;5;230 # dir that is sticky and other-writable (
 OTHER_WRITABLE 48;5;235;38;5;33        # dir that is other-writable (o+w) and not sticky
 STICKY 48;5;33;38;5;230                # dir with the sticky bit set (+t) and not other-writable
 
-## Archives or compressed (bright red)
-.tar    01;31
-.tgz    01;31
-.arj    01;31
-.taz    01;31
-.lzh    01;31
-.lzma   01;31
-.tlz    01;31
-.txz    01;31
-.zip    01;31
-.z      01;31
-.Z      01;31
-.dz     01;31
-.gz     01;31
-.lz     01;31
-.xz     01;31
-.bz2    01;31
-.bz     01;31
-.tbz    01;31
-.tbz2   01;31
-.tz     01;31
-.deb    01;31
-.rpm    01;31
-.jar    01;31
-.rar    01;31
-.ace    01;31
-.zoo    01;31
-.cpio   01;31
-.7z     01;31
-.rz     01;31
-.apk    01;31
-.gem    01;31
+# ARCHIVES
+.tar         01;38;5;160
+.tgz         01;38;5;160
+.zip         01;38;5;160
+.z           01;38;5;160
+.Z           01;38;5;160
+.gz          01;38;5;160
+.xz          01;38;5;160
+.bz2         01;38;5;160
+.bz          01;38;5;160
+.tbz         01;38;5;160
+.tbz2        01;38;5;160
+.tz          01;38;5;160
+.deb         01;38;5;160
+.rpm         01;38;5;160
+.jar         01;38;5;160
+.rar         01;38;5;160
+.cpio        01;38;5;160
+.7z          01;38;5;160
+.apk         01;38;5;160
 
-# Executables (Bright Green:82)
-EXEC 01;38;5;82 # Files with exec flag
-.cmd 00;38;5;82
-.exe 00;38;5;82
-.com 00;38;5;82
-.btm 00;38;5;82
-.bat 00;38;5;82
+# IMPORTANT
+.log         01;38;5;255
+.ini         01;38;5;255
+.cfg         01;38;5;255
+.conf        01;38;5;255
+*config      01;38;5;255
+.xml         01;38;5;255
+.yml         01;38;5;255
+.md          01;38;5;255
+.mkd         01;38;5;255
+.markdown    01;38;5;255
+.nfo         01;38;5;255
+.local       01;38;5;255
+*rc          01;38;5;255
+*profile     01;38;5;255
+*NOTICE      01;38;5;255
+*README      01;38;5;255
+*README.txt  01;38;5;255
+*readme.txt  01;38;5;255
+*Makefile    00;38;5;255
+*Rakefile    00;38;5;255
 
-# Image formats (Blue:37)
-.jpg    00;38;5;37
-.jpeg   00;38;5;37
-.gif    00;38;5;37
-.bmp    00;38;5;37
-.pbm    00;38;5;37
-.pgm    00;38;5;37
-.ppm    00;38;5;37
-.tga    00;38;5;37
-.xbm    00;38;5;37
-.xpm    00;38;5;37
-.tif    00;38;5;37
-.tiff   00;38;5;37
-.png    00;38;5;37
-.svg    00;38;5;37
-.svgz   00;38;5;37
-.mng    00;38;5;37
-.pcx    00;38;5;37
-.dl     00;38;5;37
-.xcf    00;38;5;37
-.xwd    00;38;5;37
-.yuv    00;38;5;37
-.cgm    00;38;5;37
-.emf    00;38;5;37
-.eps    00;38;5;37
-.CR2    00;38;5;37
-.ico    00;38;5;37
+# UNIMPORTANT
+*~           00;38;5;249
+*#           00;38;5;249
+.bak         00;38;5;249
+.part        00;38;5;249
+.incomplete  00;38;5;249
+.swp         00;38;5;249
+.tmp         00;38;5;249
+.temp        00;38;5;249
+.o           00;38;5;249
+.pyc         00;38;5;249
+.class       00;38;5;249
+.cache       00;38;5;249
+*LICENSE     00;38;5;249
+*AUTHORS     00;38;5;249
+*MAINTAINERS 00;38;5;249
 
-# Files of special interest (base1 + bold)
-.tex             00;38;5;245
-.rdf             00;38;5;245
-.owl             00;38;5;245
-.n3              00;38;5;245
-.ttl             00;38;5;245
-.nt              00;38;5;245
-.torrent         00;38;5;245
-.xml             00;38;5;245
-*Makefile        00;38;5;245
-*Rakefile        00;38;5;245
-*build.xml       00;38;5;245
-*rc              00;38;5;245
-*1               00;38;5;245
-.nfo             00;38;5;245
-*README          00;38;5;245
-*README.txt      00;38;5;245
-*readme.txt      00;38;5;245
-.md              00;38;5;245
-*README.markdown 00;38;5;245
-.ini             00;38;5;245
-.yml             00;38;5;245
-.cfg             00;38;5;245
-.conf            00;38;5;245
-.c               00;38;5;245
-.cpp             00;38;5;245
-.cc              00;38;5;245
+# BINARY DOCUMENT
+.pdf         01;38;5;115
+.odf         01;38;5;115
+.doc         01;38;5;115
+.docx        01;38;5;115
+.xls         01;38;5;115
+.xlsx        01;38;5;115
+.ppt         01;38;5;115
+.pptx        01;38;5;115
+.db          01;38;5;115
 
-# "unimportant" files as logs and backups (base01)
-.log        00;38;5;240
-.bak        00;38;5;240
-.aux        00;38;5;240
-.lof        00;38;5;240
-.lol        00;38;5;240
-.lot        00;38;5;240
-.out        00;38;5;240
-.toc        00;38;5;240
-.bbl        00;38;5;240
-.blg        00;38;5;240
-*~          00;38;5;240
-*#          00;38;5;240
-.part       00;38;5;240
-.incomplete 00;38;5;240
-.swp        00;38;5;240
-.tmp        00;38;5;240
-.temp       00;38;5;240
-.o          00;38;5;240
-.pyc        00;38;5;240
-.class      00;38;5;240
-.cache      00;38;5;240
+# IMAGE
+.jpg         01;38;5;214
+.jpeg        01;38;5;214
+.gif         01;38;5;214
+.bmp         01;38;5;214
+.pbm         01;38;5;214
+.pgm         01;38;5;214
+.ppm         01;38;5;214
+.tga         01;38;5;214
+.tif         01;38;5;214
+.tiff        01;38;5;214
+.png         01;38;5;214
+.svg         01;38;5;214
+.svgz        01;38;5;214
+.emf         01;38;5;214
+.eps         01;38;5;214
+.ico         01;38;5;214
+.webp        01;38;5;214
 
-# "unimportant" files as logs and backups (base01)
-# Document formats (Molokai Purple: 98)
-.pdf 00;38;5;98
-.odf 00;38;5;98
-.doc 00;38;5;98
-.ppt 00;38;5;98
-.pptx 00;38;5;98
-.db 00;38;5;98
+# AUDIO
+.aac         01;38;5;209
+.au          01;38;5;209
+.flac        01;38;5;209
+.mp3         01;38;5;209
+.ogg         01;38;5;209
+.wav         01;38;5;209
 
-# Audio formats (Molokai Orange: 208)
-.aac    00;38;5;208
-.au     00;38;5;208
-.flac   00;38;5;208
-.mid    00;38;5;208
-.midi   00;38;5;208
-.mka    00;38;5;208
-.mp3    00;38;5;208
-.mpc    00;38;5;208
-.ogg    00;38;5;208
-.ra     00;38;5;208
-.wav    00;38;5;208
-.m4a    00;38;5;208
-# http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions
-.axa    00;38;5;208
-.oga    00;38;5;208
-.spx    00;38;5;208
-.xspf   00;38;5;208
+# VIDEO
+.mpg         01;38;5;204
+.mpeg        01;38;5;204
+.mkv         01;38;5;204
+.ogm         01;38;5;204
+.mp4         01;38;5;204
+.wmv         01;38;5;204
+.asf         01;38;5;204
+.rmvb        01;38;5;204
+.avi         01;38;5;204
+.m2ts        01;38;5;204
+.divx        01;38;5;204
+.webm        01;38;5;204
+.avi         01;38;5;204
 
-# Video formats (as audio + bold)
-.mov    01;38;5;208
-.mpg    01;38;5;208
-.mpeg   01;38;5;208
-.m2v    01;38;5;208
-.mkv    01;38;5;208
-.ogm    01;38;5;208
-.mp4    01;38;5;208
-.m4v    01;38;5;208
-.mp4v   01;38;5;208
-.vob    01;38;5;208
-.qt     01;38;5;208
-.nuv    01;38;5;208
-.wmv    01;38;5;208
-.asf    01;38;5;208
-.rm     01;38;5;208
-.rmvb   01;38;5;208
-.flc    01;38;5;208
-.avi    01;38;5;208
-.fli    01;38;5;208
-.flv    01;38;5;208
-.gl     01;38;5;208
-.m2ts   01;38;5;208
-.divx   01;38;5;208
-.webm   01;38;5;208
-# http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions
-.axv    01;38;5;208
-.anx    01;38;5;208
-.ogv    01;38;5;208
-.ogx    01;38;5;208
-
-# "unimportant" files as logs and backups (base01)
-.log        00;38;5;240
-.bak        00;38;5;240
-.aux        00;38;5;240
-.bbl        00;38;5;240
-.blg        00;38;5;240
-*~          00;38;5;240
-*#          00;38;5;240
-.part       00;38;5;240
-.incomplete 00;38;5;240
-.swp        00;38;5;240
-.tmp        00;38;5;240
-.temp       00;38;5;240
-.o          00;38;5;240
-.pyc        00;38;5;240
-.class      00;38;5;240
-.cache      00;38;5;240
+# EXECUTABLE
+EXEC         00;38;5;82
+.cmd         00;38;5;82
+.exe         00;38;5;82
+.com         00;38;5;82
+.bat         00;38;5;82
+.bin         00;38;5;82
 
