@@ -1,5 +1,5 @@
 # EDITOR SETTINGS
-EDITOR=$(which nvim)
+EDITOR=$(which vim)
 export EDITOR
 
 # GOLANG SETTINGS

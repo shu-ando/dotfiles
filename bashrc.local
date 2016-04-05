@@ -2,7 +2,7 @@
 #	PS1="\[\e[38;5;085m\]\u@\h\[\e[0m\] \[\e[38;5;116m\]\t\[\e[0m\]\[\e[38;5;158m\] #\$?:\!\[\e[0m\] \[\e[38;5;223m\]\$(parse_git_branch)\[\e[0m\]\[\e[38;5;228m\]\w\[\e[0m\]\n\\$ "
 
 # # ALIAS SETTINGS
-alias vim='nvim'
+alias vim='vim'
 
 # # PROXY SETTINGS
 # username=***
